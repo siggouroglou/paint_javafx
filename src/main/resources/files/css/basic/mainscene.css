@@ -1,0 +1,36 @@
+/*
+ * Empty Stylesheet file.
+*/
+
+#shapeLineButton {
+  -fx-graphic: url("../../images/shapeLine.png");
+}
+
+#shapeCircleButton {
+  -fx-graphic: url("../../images/shapeCircle.png");
+}
+
+#shapeTriangleButton {
+  -fx-graphic: url("../../images/shapeTriangle.png");
+}
+
+#shapeSquareButton {
+  -fx-graphic: url("../../images/shapeSquare.png");
+}
+
+#shapeCrookedLineButton {
+  -fx-graphic: url("../../images/shapeCrookedLine.png");
+}
+
+#shapePolygonButton {
+  -fx-graphic: url("../../images/shapePolygon.png");
+}
+
+.palet-button {
+     -fx-pref-width: 32px;
+/*     -fx-max-width: 32px;
+     -fx-min-width: 50px;*/
+     -fx-pref-height: 32px;
+/*     -fx-max-height: 32px;
+     -fx-min-height: 50px;*/
+}

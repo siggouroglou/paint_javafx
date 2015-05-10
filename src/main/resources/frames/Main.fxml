@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.input.*?>
+<?import java.net.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.papei.computergraphics.controller.MainController">
+   <children>
+      <BorderPane prefHeight="200.0" prefWidth="320.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <MenuBar BorderPane.alignment="CENTER">
+              <menus>
+                <Menu mnemonicParsing="false" text="Αρχειο">
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#fileNewClick" text="Δημιουργια Νεου">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#fileOpenClick" text="Ανοιγμα..">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#fileSaveClick" text="Αποθηκευση">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#fileSaveAsClick" text="Αποθηκευση Ως">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" text="Κλεισιμο">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="W" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" onAction="#fileExportClick" text="Εξαγωγη" />
+                        <MenuItem mnemonicParsing="false" onAction="#fileImportClick" text="Εισαγωγη" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" onAction="#fileQuitClick" text="Εξοδος">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="Q" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Επεξεργασια">
+                  <items>
+                        <Menu mnemonicParsing="false" text="Σχεδιαση">
+                          <items>
+                            <MenuItem mnemonicParsing="false" onAction="#editShapeLineClick" text="Ευθυγραμμο Τμημα" />
+                              <MenuItem mnemonicParsing="false" onAction="#editShapeCicleClick" text="Κυκλος" />
+                              <MenuItem mnemonicParsing="false" onAction="#editShapeTriangleClick" text="Τριγωνο" />
+                              <MenuItem mnemonicParsing="false" onAction="#editShapeSquareClick" text="Τετραγωνο" />
+                              <MenuItem mnemonicParsing="false" onAction="#editShapeCrookedLineClick" text="Τεθλασμενη Γραμμη" />
+                              <MenuItem mnemonicParsing="false" onAction="#editShapePolygonClick" text="Πολυγωνο" />
+                          </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Χρωματα">
+                          <items>
+                            <MenuItem mnemonicParsing="false" onAction="#editColorFontClick" text="Χρωμα Φοντου" />
+                              <MenuItem mnemonicParsing="false" onAction="#editColorDesignClick" text="Χρωμα Σχεδιασης" />
+                              <MenuItem mnemonicParsing="false" onAction="#editColorFillClick" text="Χρωμα Σκιασης" />
+                          </items>
+                        </Menu>
+                    <MenuItem mnemonicParsing="false" onAction="#editSettingsClick" text="Ρυθμισεις" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Βοηθεια">
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#helpAboutClick" text="Σχετικα" />
+                  </items>
+                </Menu>
+              </menus>
+               <BorderPane.margin>
+                  <Insets bottom="5.0" />
+               </BorderPane.margin>
+            </MenuBar>
+         </top>
+         <bottom>
+            <HBox prefHeight="30.0" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets top="5.0" />
+               </BorderPane.margin>
+            </HBox>
+         </bottom>
+         <left>
+            <VBox prefHeight="481.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets left="5.0" />
+               </BorderPane.margin>
+               <children>
+                  <VBox>
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#colorFontClick" text="Χρωμα Φοντου" />
+                        <Button mnemonicParsing="false" onAction="#colorDesignClick" text="Χρωμα Σχεδιασης" />
+                        <Button mnemonicParsing="false" onAction="#colorFillClick" text="Χρωμα Σκιασης" />
+                     </children>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </VBox>
+                  <FlowPane>
+                     <children>
+                        <Button id="shapeLineButton" mnemonicParsing="false" onAction="#shapeLineClick" styleClass="palet-button" />
+                        <Button id="shapeCircleButton" mnemonicParsing="false" onAction="#shapeCircleClick" />
+                        <Button id="shapeTriangleButton" mnemonicParsing="false" onAction="#shapeTriangleAction" />
+                        <Button id="shapeSquareButton" mnemonicParsing="false" onAction="#shapeSquareClick" />
+                        <Button id="shapeCrookedLineButton" mnemonicParsing="false" onAction="#shapeCrookedLineClick" />
+                        <Button id="shapePolygonButton" mnemonicParsing="false" onAction="#shapePolygonClick" />
+                     </children>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </FlowPane>
+               </children>
+            </VBox>
+         </left>
+         <center>
+            <ScrollPane fx:id="scrolPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets left="5.0" right="5.0" />
+               </BorderPane.margin>
+            </ScrollPane>
+         </center>
+      </BorderPane>
+   </children>
+    <stylesheets>
+        <URL value="@../files/css/basic/mainscene.css" />
+    </stylesheets>
+</AnchorPane>
