@@ -40,3 +40,7 @@
     -fx-alignment: top-left;
     -fx-padding: 0 0 0 0;
 }
+
+.error-text {
+    -fx-text-fill: red;
+}

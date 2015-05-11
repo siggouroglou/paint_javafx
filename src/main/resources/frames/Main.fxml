@@ -87,14 +87,17 @@
             </MenuBar>
          </top>
          <bottom>
-            <HBox prefHeight="30.0" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER_LEFT" prefHeight="30.0" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets top="5.0" />
                </BorderPane.margin>
+               <children>
+                  <Label fx:id="footerLabel" />
+               </children>
             </HBox>
          </bottom>
          <left>
-            <VBox prefHeight="481.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <VBox prefWidth="150.0" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets left="5.0" />
                </BorderPane.margin>
@@ -130,11 +133,29 @@
                <BorderPane.margin>
                   <Insets left="5.0" right="5.0" />
                </BorderPane.margin>
+               <content>
+                  <StackPane fx:id="stackPane" />
+               </content>
             </ScrollPane>
          </center>
+         <right>
+            <ScrollPane id="shapeStackContainerScrolPane" prefViewportHeight="481.0" prefViewportWidth="150.0">
+               <content>
+                  <VBox id="shapeStackContainer" fx:id="shapeStackContainer" prefWidth="150.0" BorderPane.alignment="CENTER">
+                     <BorderPane.margin>
+                        <Insets right="5.0" />
+                     </BorderPane.margin>
+                  </VBox>
+               </content>
+               <BorderPane.margin>
+                  <Insets right="5.0" />
+               </BorderPane.margin>
+            </ScrollPane>
+         </right>
       </BorderPane>
    </children>
     <stylesheets>
+        <URL value="@../files/css/basic/commons.css" />
         <URL value="@../files/css/basic/mainscene.css" />
     </stylesheets>
 </AnchorPane>

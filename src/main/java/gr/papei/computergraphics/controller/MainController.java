@@ -1,5 +1,10 @@
 package gr.papei.computergraphics.controller;
 
+import gr.papei.computergraphics.lib.mainView.CanvasManager;
+import gr.papei.computergraphics.lib.mainView.Settings;
+import gr.papei.computergraphics.lib.mainView.ShapeStackManager;
+import gr.papei.computergraphics.lib.shape.initiator.LineInitiator;
+import gr.papei.computergraphics.lib.shape.model.Line;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -9,24 +14,44 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class MainController implements Initializable {
-
+    
     @FXML
-    private ScrollPane scrolPane;
+    private StackPane stackPane;
+    @FXML
+    private VBox shapeStackContainer;
+    @FXML
+    private Label footerLabel;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        assert scrolPane != null : "fx:id=\"scrolPane\" was not injected: check your FXML file 'Main.fxml'.";
+//        assert scrolPane != null : "fx:id=\"scrolPane\" was not injected: check your FXML file 'Main.fxml'.";
+        assert stackPane != null : "fx:id=\"stackPane\" was not injected: check your FXML file 'Main.fxml'.";
+        assert shapeStackContainer != null : "fx:id=\"shapeStackContainer\" was not injected: check your FXML file 'Main.fxml'.";
+        assert footerLabel != null : "fx:id=\"loggerLabel\" was not injected: check your FXML file 'Main.fxml'.";
+        
+        // Initialize ShapeStackManager.
+        CanvasManager.initInstance(stackPane);
+        ShapeStackManager.initInstance(shapeStackContainer);
+        
+        // Initialize Stack pane background color.
+        Color color = Color.valueOf(Settings.getInstance().getFontColor());
+        int red = (int)Math.round(color.getRed() * 255.0);
+        int green = (int)Math.round(color.getGreen() * 255.0);
+        int blue = (int)Math.round(color.getBlue() * 255.0);
+        int opacity = (int)Math.round(color.getOpacity() * 255.0);
+        stackPane.setStyle("-fx-background-color: rgb(" + red + "," + green + "," + blue + "," + opacity + ")");
     }
 
     private Stage getStage() {
-        return (Stage) scrolPane.getScene().getWindow();
+        return (Stage) stackPane.getScene().getWindow();
     }
 
     //<editor-fold defaultstate="collapsed" desc="Palet Bar">
@@ -47,7 +72,7 @@ public class MainController implements Initializable {
 
     @FXML
     void shapeLineClick(ActionEvent event) {
-
+        CanvasManager.getInstance().startDrawing(new LineInitiator(new Line()));
     }
 
     @FXML
@@ -86,14 +111,12 @@ public class MainController implements Initializable {
         fileNewStage.initModality(Modality.WINDOW_MODAL);
         fileNewStage.initOwner(currentStage);
         fileNewStage.setTitle("Δημιουργία Νεου Καμβα");
+        fileNewStage.setResizable(false);
 
         // Load the view.
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/frames/FileNew.fxml"));
         Parent root = (Parent) loader.load();
         fileNewStage.setScene(new Scene(root));
-
-//        LogInController controller = (LogInController)loader.getController();        
-//        controller.setStage(primaryStage);
         
         /// Show it.
         fileNewStage.show();
@@ -132,7 +155,7 @@ public class MainController implements Initializable {
     //<editor-fold defaultstate="collapsed" desc="Edit Menu">
     @FXML
     void editShapeLineClick(ActionEvent event) {
-
+        CanvasManager.getInstance().startDrawing(new LineInitiator(new Line()));
     }
 
     @FXML
@@ -176,8 +199,22 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    void editSettingsClick(ActionEvent event) {
+    void editSettingsClick(ActionEvent event) throws IOException {
+        // Stages and owners.
+        Stage currentStage = getStage();
+        Stage editSettingsStage = new Stage();
+        editSettingsStage.initModality(Modality.WINDOW_MODAL);
+        editSettingsStage.initOwner(currentStage);
+        editSettingsStage.setTitle("Ρυθμίσεις");
+        editSettingsStage.setResizable(false);
 
+        // Load the view.
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/frames/EditSettings.fxml"));
+        Parent root = (Parent) loader.load();
+        editSettingsStage.setScene(new Scene(root));
+        
+        /// Show it.
+        editSettingsStage.show();
     }
     //</editor-fold>
 

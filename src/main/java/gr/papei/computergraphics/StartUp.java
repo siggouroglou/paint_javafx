@@ -20,6 +20,7 @@ public class StartUp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
+        primaryStage.setTitle("ΠΑΝΕΠΙΣΤΗΜΙΟ ΠΕΙΡΑΙΑ - ΤΜΗΜΑ ΠΛΗΡΟΦΟΡΙΚΗΣ - ΓΡΑΦΙΚΑ ΜΕ ΥΠΟΛΟΓΙΣΤΕΣ 2015");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/frames/Main.fxml"));
         
         Parent root = (Parent)loader.load();
