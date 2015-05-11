@@ -20,7 +20,10 @@ public class Settings {
     private final static String DEFAULT_LOCATION = "./settings.json";
     private static Settings INSTANCE;
 
-    private String fontColor;
+    private String backgroundColor;
+    private String designColor;
+    private double designWidth;
+    private String fillColor;
 
     private Settings() throws IOException {
     }
@@ -43,12 +46,36 @@ public class Settings {
         return INSTANCE;
     }
 
-    public String getFontColor() {
-        return fontColor;
+    public String getBackgroundColor() {
+        return backgroundColor;
     }
 
-    public void setFontColor(String fontColor) {
-        this.fontColor = fontColor;
+    public void setBackgroundColor(String backgroundColor) {
+        this.backgroundColor = backgroundColor;
+    }
+
+    public String getDesignColor() {
+        return designColor;
+    }
+
+    public void setDesignColor(String designColor) {
+        this.designColor = designColor;
+    }
+
+    public double getDesignWidth() {
+        return designWidth;
+    }
+
+    public void setDesignWidth(double designWidth) {
+        this.designWidth = designWidth;
+    }
+
+    public String getFillColor() {
+        return fillColor;
+    }
+
+    public void setFillColor(String fillColor) {
+        this.fillColor = fillColor;
     }
 
     public void save() throws IOException {

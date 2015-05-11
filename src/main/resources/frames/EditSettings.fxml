@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefWidth="400.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="gr.papei.computergraphics.controller.EditSettingsController">
+<AnchorPane id="AnchorPane" prefWidth="400.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.papei.computergraphics.controller.EditSettingsController">
     <stylesheets>
         <URL value="@/files/css/basic/commons.css" />
     </stylesheets>
@@ -25,14 +25,21 @@
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
                <children>
                   <Label text="Χρώμα Φόντου" />
-                  <ColorPicker fx:id="colorFontPicker" prefHeight="25.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
+                  <ColorPicker fx:id="colorFontNode" prefHeight="25.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
+                  <Label text="Χρωμα Σχεδιασης" GridPane.rowIndex="1" />
+                  <Label text="Παχος Γραμμων" GridPane.rowIndex="2" />
+                  <ColorPicker fx:id="colorDesignNode" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Slider fx:id="widthDesignNode" blockIncrement="1.0" majorTickUnit="1.0" max="5.0" min="1.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <ColorPicker fx:id="colorFillNode" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label text="Χρωμα Γεμισματος" GridPane.rowIndex="3" />
                </children>
             </GridPane>
             <Label fx:id="errorLabel" styleClass="error-text">

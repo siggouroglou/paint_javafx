@@ -1,5 +1,6 @@
 package gr.papei.computergraphics.lib.shape.initiator;
 
+import gr.papei.computergraphics.lib.mainView.ShapeProperties;
 import gr.papei.computergraphics.lib.mainView.ShapeStackManager;
 import gr.papei.computergraphics.lib.shape.Point;
 import gr.papei.computergraphics.lib.shape.model.Line;
@@ -12,10 +13,15 @@ import javafx.scene.input.MouseEvent;
  * @author siggouroglou@gmail.com
  */
 public class LineInitiator implements ShapeInitiator<Shape> {
-    private final Line line;
+    private Line line;
 
-    public LineInitiator(Line line) {
-        this.line = line;
+    public LineInitiator() {
+        this.line = null;
+    }
+
+    @Override
+    public void initialize() {
+        this.line = new Line();
     }
 
     @Override
@@ -26,6 +32,8 @@ public class LineInitiator implements ShapeInitiator<Shape> {
         
         line.setFrom(new Point(x, y));
         line.setTo(new Point(x, y));
+        line.setLineColor(ShapeProperties.getInstance().getColor());
+        line.setWidth(ShapeProperties.getInstance().getWidth());
         
         // This is the first click, so create the line.
         ShapeStackManager.getInstance().add(line);

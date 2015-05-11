@@ -1,7 +1,9 @@
 package gr.papei.computergraphics.controller;
 
+import gr.papei.computergraphics.lib.ColorUtilities;
 import gr.papei.computergraphics.lib.mainView.CanvasManager;
 import gr.papei.computergraphics.lib.mainView.Settings;
+import gr.papei.computergraphics.lib.mainView.ShapeProperties;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -10,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -21,7 +24,13 @@ import javafx.stage.Stage;
 public class EditSettingsController implements Initializable {
 
     @FXML
-    private ColorPicker colorFontPicker;
+    private ColorPicker colorFontNode;
+    @FXML
+    private ColorPicker colorDesignNode;
+    @FXML
+    private Slider widthDesignNode;
+    @FXML
+    private ColorPicker colorFillNode;
 
     @FXML
     private Label errorLabel;
@@ -29,12 +38,21 @@ public class EditSettingsController implements Initializable {
     /**
      * Initializes the controller class.
      * @param url
-     * @xparam rb
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        assert colorFontPicker != null : "fx:id=\"colorFontPicker\" was not injected: check your FXML file 'EditSettings.fxml'.";
+        assert colorFontNode != null : "fx:id=\"colorFontNode\" was not injected: check your FXML file 'EditSettings.fxml'.";
+        assert colorDesignNode != null : "fx:id=\"colorDesignNode\" was not injected: check your FXML file 'EditSettings.fxml'.";
+        assert widthDesignNode != null : "fx:id=\"widthDesignNode\" was not injected: check your FXML file 'EditSettings.fxml'.";
         assert errorLabel != null : "fx:id=\"errorLabel\" was not injected: check your FXML file 'EditSettings.fxml'.";
+        assert colorFillNode != null : "fx:id=\"colorFillNode\" was not injected: check your FXML file 'EditSettings.fxml'.";
+        
+        // Initialize colors from settings.
+        colorFontNode.setValue(Color.valueOf(Settings.getInstance().getBackgroundColor()));
+        colorDesignNode.setValue(Color.valueOf(Settings.getInstance().getDesignColor()));
+        widthDesignNode.setValue(Settings.getInstance().getDesignWidth());
+        colorFillNode.setValue(Color.valueOf(Settings.getInstance().getFillColor()));
     }
 
     @FXML
@@ -46,13 +64,21 @@ public class EditSettingsController implements Initializable {
     @FXML
     void saveClick(ActionEvent event) throws IOException {
         // Save the font color to settings.
-        Color color = colorFontPicker.getValue();
+        Color colorFont = colorFontNode.getValue();
+        Color colorDesign = colorDesignNode.getValue();
+        Color colorFill = colorFillNode.getValue();
         Settings settings = Settings.getInstance();
-        settings.setFontColor(color.toString());
+        settings.setBackgroundColor(colorFont.toString());
+        settings.setDesignColor(colorDesign.toString());
+        settings.setDesignWidth(widthDesignNode.getValue());
+        settings.setFillColor(colorFill.toString());
         settings.save();
         
-        // Load the new font to canvas.
-        CanvasManager.getInstance().changeBackgroundColor(color);
+        // Load the new font to canvas and view.
+        CanvasManager.getInstance().changeBackgroundColor(colorFont);
+        ShapeProperties.getInstance().colorProperty().set(colorDesign);
+        ShapeProperties.getInstance().widthProperty().setValue(widthDesignNode.getValue());
+        ShapeProperties.getInstance().fillProperty().set(colorFill);
         
         // Close the stage.
         Stage stage = (Stage) errorLabel.getScene().getWindow();

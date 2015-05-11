@@ -1,5 +1,13 @@
 
 
+.mainFxmlClass {
+    -fx-background-image: url("../../images/main-background.jpg");
+    -fx-background-position: center center;
+    -fx-font-size: 14px;
+    -fx-font-family: "Arial";
+    -fx-fill: #818181;
+}
+
 .title-small {
     -fx-font-size: 14px;
     -fx-fill: #818181;

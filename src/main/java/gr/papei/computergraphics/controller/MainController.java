@@ -1,20 +1,28 @@
 package gr.papei.computergraphics.controller;
 
+import gr.papei.computergraphics.lib.ColorUtilities;
 import gr.papei.computergraphics.lib.mainView.CanvasManager;
 import gr.papei.computergraphics.lib.mainView.Settings;
+import gr.papei.computergraphics.lib.mainView.ShapeProperties;
 import gr.papei.computergraphics.lib.mainView.ShapeStackManager;
 import gr.papei.computergraphics.lib.shape.initiator.LineInitiator;
 import gr.papei.computergraphics.lib.shape.model.Line;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -29,6 +37,17 @@ public class MainController implements Initializable {
     private VBox shapeStackContainer;
     @FXML
     private Label footerLabel;
+    
+    @FXML
+    private ToggleGroup radioGroup1;
+    @FXML
+    private GridPane shapeProperiesGridPane;
+    @FXML
+    private ColorPicker shapePropertyColor;
+    @FXML
+    private Slider shapePropertyWidth;
+    @FXML
+    private ColorPicker shapePropertyFill;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -36,18 +55,31 @@ public class MainController implements Initializable {
         assert stackPane != null : "fx:id=\"stackPane\" was not injected: check your FXML file 'Main.fxml'.";
         assert shapeStackContainer != null : "fx:id=\"shapeStackContainer\" was not injected: check your FXML file 'Main.fxml'.";
         assert footerLabel != null : "fx:id=\"loggerLabel\" was not injected: check your FXML file 'Main.fxml'.";
+        assert shapeProperiesGridPane != null : "fx:id=\"shapeProperiesGridPane\" was not injected: check your FXML file 'Main.fxml'.";
+        assert shapePropertyColor != null : "fx:id=\"shapePropertyColor\" was not injected: check your FXML file 'Main.fxml'.";
+        assert shapePropertyWidth != null : "fx:id=\"shapePropertyWidth\" was not injected: check your FXML file 'Main.fxml'.";
+        assert shapePropertyFill != null : "fx:id=\"shapePropertyFill\" was not injected: check your FXML file 'Main.fxml'.";
         
-        // Initialize ShapeStackManager.
+        // Initialize CanvasManager and ShapeStackManager.
         CanvasManager.initInstance(stackPane);
         ShapeStackManager.initInstance(shapeStackContainer);
         
         // Initialize Stack pane background color.
-        Color color = Color.valueOf(Settings.getInstance().getFontColor());
-        int red = (int)Math.round(color.getRed() * 255.0);
-        int green = (int)Math.round(color.getGreen() * 255.0);
-        int blue = (int)Math.round(color.getBlue() * 255.0);
-        int opacity = (int)Math.round(color.getOpacity() * 255.0);
-        stackPane.setStyle("-fx-background-color: rgb(" + red + "," + green + "," + blue + "," + opacity + ")");
+        Color color = Color.valueOf(Settings.getInstance().getBackgroundColor());
+        stackPane.setStyle("-fx-background-color: " + ColorUtilities.colorToWeb(color));
+        
+        // Load ShapeProperties from settings.
+        ShapeProperties.getInstance().colorProperty().set(Color.valueOf(Settings.getInstance().getDesignColor()));
+        ShapeProperties.getInstance().widthProperty().set(Settings.getInstance().getDesignWidth());
+        
+        // Bind shape properties to shape toogle buttons.
+        shapeProperiesGridPane.visibleProperty().bind(Bindings.isNotNull(radioGroup1.selectedToggleProperty()));
+        shapePropertyColor.valueProperty().bindBidirectional(ShapeProperties.getInstance().colorProperty());
+        shapePropertyWidth.valueProperty().bindBidirectional(ShapeProperties.getInstance().widthProperty());
+        shapePropertyFill.valueProperty().bindBidirectional(ShapeProperties.getInstance().fillProperty());
+        
+        // Bind CanvasManager drawingEnable property.
+        CanvasManager.getInstance().drawingEnable().bind(Bindings.isNotNull(radioGroup1.selectedToggleProperty()));
     }
 
     private Stage getStage() {
@@ -56,23 +88,8 @@ public class MainController implements Initializable {
 
     //<editor-fold defaultstate="collapsed" desc="Palet Bar">
     @FXML
-    void colorFontClick(ActionEvent event) {
-
-    }
-
-    @FXML
-    void colorDesignClick(ActionEvent event) {
-
-    }
-
-    @FXML
-    void colorFillClick(ActionEvent event) {
-
-    }
-
-    @FXML
     void shapeLineClick(ActionEvent event) {
-        CanvasManager.getInstance().startDrawing(new LineInitiator(new Line()));
+        CanvasManager.getInstance().startDrawing(new LineInitiator());
     }
 
     @FXML
@@ -111,6 +128,7 @@ public class MainController implements Initializable {
         fileNewStage.initModality(Modality.WINDOW_MODAL);
         fileNewStage.initOwner(currentStage);
         fileNewStage.setTitle("Δημιουργία Νεου Καμβα");
+        fileNewStage.getIcons().add(new Image("/files/images/unipi_logo.jpg"));
         fileNewStage.setResizable(false);
 
         // Load the view.
@@ -155,7 +173,7 @@ public class MainController implements Initializable {
     //<editor-fold defaultstate="collapsed" desc="Edit Menu">
     @FXML
     void editShapeLineClick(ActionEvent event) {
-        CanvasManager.getInstance().startDrawing(new LineInitiator(new Line()));
+        CanvasManager.getInstance().startDrawing(new LineInitiator());
     }
 
     @FXML
@@ -206,6 +224,7 @@ public class MainController implements Initializable {
         editSettingsStage.initModality(Modality.WINDOW_MODAL);
         editSettingsStage.initOwner(currentStage);
         editSettingsStage.setTitle("Ρυθμίσεις");
+        editSettingsStage.getIcons().add(new Image("/files/images/unipi_logo.jpg"));
         editSettingsStage.setResizable(false);
 
         // Load the view.

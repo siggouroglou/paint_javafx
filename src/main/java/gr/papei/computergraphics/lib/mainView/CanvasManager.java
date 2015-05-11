@@ -1,9 +1,11 @@
 package gr.papei.computergraphics.lib.mainView;
 
-import gr.papei.computergraphics.lib.canvas.CanvasState;
+import gr.papei.computergraphics.lib.ColorUtilities;
 import gr.papei.computergraphics.lib.shape.initiator.ShapeInitiator;
 import gr.papei.computergraphics.lib.shape.initiator.ShapeInitiatorState;
 import gr.papei.computergraphics.lib.shape.model.Shape;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Cursor;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -22,7 +24,7 @@ public final class CanvasManager {
     private static CanvasManager INSTANCE;
 
     private StackPane parent;
-    private CanvasState state;
+    private BooleanProperty drawingEnable;
     private Canvas canvas;
     private ShapeInitiator shapeInitiator;
 
@@ -32,7 +34,7 @@ public final class CanvasManager {
 
     public CanvasManager(StackPane parent) {
         this.parent = parent;
-        this.state = CanvasState.NO_DRAWING;
+        this.drawingEnable = new SimpleBooleanProperty(false);
         this.canvas = null;
         this.shapeInitiator = null;
     }
@@ -60,15 +62,14 @@ public final class CanvasManager {
 
         // Mouse click event.
         canvas.addEventHandler(MouseEvent.MOUSE_PRESSED, (MouseEvent mouseEvent) -> {
-            if (state == CanvasState.UNDER_DRAWING) {
+            if (drawingEnable.get() && mouseEvent.isPrimaryButtonDown() && shapeInitiator != null) {
                 // Clear shapes from canvas.
                 crearAllShapes();
 
                 // Draw current shape.
                 ShapeInitiatorState shapeInitiatorState = shapeInitiator.eventPressed(pixelWriter, mouseEvent);
                 if (shapeInitiatorState == ShapeInitiatorState.COMPLETED) {
-                    state = CanvasState.NO_DRAWING;
-                    shapeInitiator = null;
+                    shapeInitiator.initialize();
                 }
 
                 // Draw shapes to canvas.
@@ -78,15 +79,14 @@ public final class CanvasManager {
 
         // Mouse drag event.
         canvas.addEventHandler(MouseEvent.MOUSE_DRAGGED, (MouseEvent mouseEvent) -> {
-            if (state == CanvasState.UNDER_DRAWING) {
+            if (drawingEnable.get() && mouseEvent.isPrimaryButtonDown() && shapeInitiator != null) {
                 // Clear shapes from canvas.
                 crearAllShapes();
 
                 // Draw current shape.
                 ShapeInitiatorState shapeInitiatorState = shapeInitiator.eventDragged(pixelWriter, mouseEvent);
                 if (shapeInitiatorState == ShapeInitiatorState.COMPLETED) {
-                    state = CanvasState.NO_DRAWING;
-                    shapeInitiator = null;
+                    shapeInitiator.initialize();
                 }
 
                 // Draw shapes to canvas.
@@ -96,22 +96,21 @@ public final class CanvasManager {
 
         // Mouse 
         canvas.addEventHandler(MouseEvent.MOUSE_RELEASED, (MouseEvent mouseEvent) -> {
-            if (state == CanvasState.UNDER_DRAWING) {
+            if (drawingEnable.get() && shapeInitiator != null) {
                 // Clear shapes from canvas.
                 crearAllShapes();
 
                 // Draw current shape.
                 ShapeInitiatorState shapeInitiatorState = shapeInitiator.eventReleased(pixelWriter, mouseEvent);
                 if (shapeInitiatorState == ShapeInitiatorState.COMPLETED) {
-                    state = CanvasState.NO_DRAWING;
-                    shapeInitiator = null;
+                    shapeInitiator.initialize();
                 }
 
                 // Draw shapes to canvas.
                 drawAllShapes();
             }
         });
-        
+
         // Clear parent and add the new created canvas.
         parent.getChildren().clear();
         parent.getChildren().add(canvas);
@@ -119,7 +118,11 @@ public final class CanvasManager {
 
     public void startDrawing(ShapeInitiator shapeInitiator) {
         this.shapeInitiator = shapeInitiator;
-        this.state = CanvasState.UNDER_DRAWING;
+        this.shapeInitiator.initialize();
+    }
+
+    public BooleanProperty drawingEnable() {
+        return drawingEnable;
     }
 
     private void crearAllShapes() {
@@ -130,7 +133,7 @@ public final class CanvasManager {
         final PixelWriter pixelWriter = gc.getPixelWriter();
 
         for (Shape shape : ShapeStackManager.getInstance().getStack()) {
-            shape.clear(pixelWriter, Color.valueOf(Settings.getInstance().getFontColor()));
+            shape.clear(pixelWriter, Color.valueOf(Settings.getInstance().getBackgroundColor()));
         }
     }
 
@@ -151,21 +154,18 @@ public final class CanvasManager {
         drawAllShapes();
     }
 
-    public void changeBackgroundColor(Color color) {
-        // Get the new background colors.
-        int red = (int) Math.round(color.getRed() * 255.0);
-        int green = (int) Math.round(color.getGreen() * 255.0);
-        int blue = (int) Math.round(color.getBlue() * 255.0);
-        int opacity = (int) Math.round(color.getOpacity() * 255.0);
-
+    public void refreshCanvas() {
         // Clear everything from vanvas
         final GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-        // Draw the new background.
-        canvas.getParent().setStyle("-fx-background-color: rgb(" + red + "," + green + "," + blue + "," + opacity + ")");
-
-        // Draw shapes.
         drawAllShapes();
+    }
+
+    public void changeBackgroundColor(Color color) {
+        refreshCanvas();
+
+        // Draw the new background.
+        canvas.getParent().setStyle("-fx-background-color: " + ColorUtilities.colorToWeb(color));
     }
 }

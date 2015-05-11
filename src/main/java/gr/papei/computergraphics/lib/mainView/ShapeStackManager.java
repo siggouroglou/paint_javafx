@@ -2,7 +2,7 @@ package gr.papei.computergraphics.lib.mainView;
 
 import gr.papei.computergraphics.lib.shape.model.Shape;
 import java.util.Stack;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -49,8 +49,16 @@ public final class ShapeStackManager {
         shapeStack.push(shape);
         
         // Add to view.
-        HBox hBox = shape.getView();
-        shapeStackContainer.getChildren().add(hBox);
+        Pane pane = shape.getView();
+        shapeStackContainer.getChildren().add(pane);
+    }
+
+    public void remove(Shape shape, Pane pane) {
+        // Remove from the stack.
+        shapeStack.remove(shape);
+        
+        // Remove from view.
+        shapeStackContainer.getChildren().remove(pane);
     }
 
     public Iterable<Shape> getStack() {

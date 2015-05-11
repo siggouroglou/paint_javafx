@@ -4,13 +4,21 @@
 
 #shapeStackContainerScrolPane {
     -fx-border-radius: 0;
-    -fx-border-insets: 1;
+    -fx-border-insets: 0;
     -fx-border-color: #D7D7D7;
     -fx-border-width:  1 1 1 1;
 }
 
 #shapeStackContainer {
-    -fx-background-color: #FFFFFF;
+    -fx-background-color: #FFFFFF00;
+}
+
+#footerContainer {
+    -fx-background-color: linear-gradient(to bottom, #F9F9F9, #E7E7E7);
+    -fx-border-radius: 0;
+    -fx-border-insets: 1;
+    -fx-border-color: #D7D7D7;
+    -fx-border-width:  1 0 0 0;
 }
 
 #shapeLineButton {
@@ -44,4 +52,19 @@
      -fx-pref-height: 32px;
 /*     -fx-max-height: 32px;
      -fx-min-height: 50px;*/
+}
+
+.shapeStackItem {
+    -fx-border-radius: 0;
+    -fx-border-insets: 0;
+    -fx-border-color: #D7D7D7;
+    -fx-border-width:  1 1 1 1;
+}
+
+.shapeStackItem:hover,
+.shapeStackItem:pressed {
+    -fx-border-radius: 0;
+    -fx-border-insets: 0;
+    -fx-border-color: #A0A0A0;
+    -fx-border-width:  1 1 1 1;
 }
