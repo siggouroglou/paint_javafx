@@ -1,12 +1,12 @@
 package gr.papei.computergraphics.controller;
 
+import gr.papei.computergraphics.controller.help.AboutController;
 import gr.papei.computergraphics.lib.ColorUtilities;
 import gr.papei.computergraphics.lib.mainView.CanvasManager;
 import gr.papei.computergraphics.lib.mainView.Settings;
 import gr.papei.computergraphics.lib.mainView.ShapeProperties;
 import gr.papei.computergraphics.lib.mainView.ShapeListManager;
 import gr.papei.computergraphics.lib.shape.initiator.LineInitiator;
-import gr.papei.computergraphics.lib.shape.model.Line;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -28,6 +28,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class MainController implements Initializable {
     
@@ -135,7 +136,7 @@ public class MainController implements Initializable {
         fileNewStage.setResizable(false);
 
         // Load the view.
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/frames/FileNew.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/frames/file/FileNew.fxml"));
         Parent root = (Parent) loader.load();
         fileNewStage.setScene(new Scene(root));
         
@@ -149,7 +150,7 @@ public class MainController implements Initializable {
 
     @FXML
     void fileSaveClick(ActionEvent event) {
-
+        
     }
 
     @FXML
@@ -241,8 +242,20 @@ public class MainController implements Initializable {
     //</editor-fold>
 
     @FXML
-    void helpAboutClick(ActionEvent event) {
+    void helpAboutClick(ActionEvent event) throws IOException {
+        Stage aboutStage = new Stage();
+        aboutStage.initModality(Modality.WINDOW_MODAL);
+        aboutStage.initStyle(StageStyle.UNDECORATED);
+        aboutStage.initOwner(getStage());
 
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/frames/help/About.fxml"));
+        Parent root = (Parent) loader.load();
+        aboutStage.setScene(new Scene(root));
+
+        AboutController controller = (AboutController) loader.getController();
+        controller.setStage(aboutStage);
+
+        aboutStage.show();
     }
     //</editor-fold>
 }

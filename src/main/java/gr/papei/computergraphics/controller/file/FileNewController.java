@@ -1,4 +1,4 @@
-package gr.papei.computergraphics.controller;
+package gr.papei.computergraphics.controller.file;
 
 import gr.papei.computergraphics.lib.mainView.CanvasManager;
 import gr.papei.computergraphics.lib.mainView.ShapeListManager;

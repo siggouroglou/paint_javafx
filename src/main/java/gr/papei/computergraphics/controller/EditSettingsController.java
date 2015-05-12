@@ -1,6 +1,5 @@
 package gr.papei.computergraphics.controller;
 
-import gr.papei.computergraphics.lib.ColorUtilities;
 import gr.papei.computergraphics.lib.mainView.CanvasManager;
 import gr.papei.computergraphics.lib.mainView.Settings;
 import gr.papei.computergraphics.lib.mainView.ShapeProperties;
