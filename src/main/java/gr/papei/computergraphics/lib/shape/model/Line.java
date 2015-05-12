@@ -1,13 +1,21 @@
 package gr.papei.computergraphics.lib.shape.model;
 
+import gr.papei.computergraphics.controller.shapeEdit.LineEditController;
 import gr.papei.computergraphics.lib.ColorUtilities;
 import gr.papei.computergraphics.lib.mainView.CanvasManager;
-import gr.papei.computergraphics.lib.mainView.ShapeStackManager;
+import gr.papei.computergraphics.lib.mainView.ShapeListItemEditStrategy;
+import gr.papei.computergraphics.lib.mainView.ShapeListManager;
 import gr.papei.computergraphics.lib.shape.Point;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -18,6 +26,8 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 /**
  *
@@ -158,52 +168,48 @@ public final class Line implements Shape {
     }
 
     @Override
-    public HBox getView() {
+    public ShapeListItemEditStrategy getEditStrategy() {
         final Line line = this;
-        final HBox container = new HBox(10D);
-        container.alignmentProperty().set(Pos.CENTER);
-        container.getStyleClass().add("shapeStackItem");
-
-        // Add the image.
-        Image image = new Image(getClass().getResourceAsStream("/files/images/shapeLine.png"));
-        ImageView imageView = new ImageView(image);
-        container.getChildren().add(imageView);
-
-        // Add the text.
-        Label label = new Label("Γραμμή");
-        label.setStyle("-fx-text-fill: " + ColorUtilities.colorToWeb(this.lineColor));
-        container.getChildren().add(label);
-
-        // Create the context menu.
-        final ContextMenu contextMenu = new ContextMenu();
-
-        // Menu Edit.
-        MenuItem menuItem1 = new MenuItem("Επεξεργασία");
-        menuItem1.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
+        return () -> {
+            // Stages and owners.
+            Stage currentStage = (Stage) CanvasManager.getInstance().getCanvas().getScene().getWindow();
+            Stage lineEditStage = new Stage();
+            lineEditStage.initModality(Modality.WINDOW_MODAL);
+            lineEditStage.initOwner(currentStage);
+            lineEditStage.setTitle("Επεξεργασία Γραμμής");
+            lineEditStage.getIcons().add(new Image("/files/images/unipi_logo.jpg"));
+            lineEditStage.setResizable(false);
+            
+            // Load the view.
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/frames/shapeEdit/LineEdit.fxml"));
+            try {
+                Parent root = (Parent) loader.load();
+                lineEditStage.setScene(new Scene(root));
+            } catch (IOException ex) {
+                ex.printStackTrace();
             }
-        });
-        contextMenu.getItems().add(menuItem1);
+            
+            // Set the contollerreference to this line.
+            LineEditController controller = (LineEditController) loader.getController();
+            controller.setLine(line);
+            
+            /// Show it.
+            lineEditStage.show();
+        };
+    }
 
-        // Menu Delete.
-        MenuItem menuItem2 = new MenuItem("Διαγραφή");
-        menuItem2.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                ShapeStackManager.getInstance().remove(line, container);
-                CanvasManager.getInstance().refreshCanvas();
-            }
-        });
-        contextMenu.getItems().add(menuItem2);
+    @Override
+    public String getImageFilePath() {
+        return "/files/images/shapeLine.png";
+    }
 
-        container.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent e) {
-                if (e.getButton() == MouseButton.SECONDARY) {
-                    contextMenu.show(container, Side.BOTTOM, 0, 0);
-                }
-            }
-        });
-
-        return container;
+    @Override
+    public Color getShapeColor() {
+        return this.lineColor;
+    }
+    
+    @Override
+    public String getShapeTitle(){
+        return "Γραμμή";
     }
 }

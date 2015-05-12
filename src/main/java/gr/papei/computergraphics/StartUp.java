@@ -2,7 +2,6 @@ package gr.papei.computergraphics;
 
 import java.io.IOException;
 import javafx.application.Application;
-import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -33,5 +32,6 @@ public class StartUp extends Application {
         
         primaryStage.show();
     }
+
 
 }

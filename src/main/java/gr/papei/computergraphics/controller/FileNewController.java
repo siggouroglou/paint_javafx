@@ -1,7 +1,7 @@
 package gr.papei.computergraphics.controller;
 
 import gr.papei.computergraphics.lib.mainView.CanvasManager;
-import gr.papei.computergraphics.lib.mainView.ShapeStackManager;
+import gr.papei.computergraphics.lib.mainView.ShapeListManager;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -59,9 +59,9 @@ public class FileNewController implements Initializable {
             return;
         }
         
-        // Initialize canvas and stack.
+        // Initialize canvas and list.
         CanvasManager.getInstance().resetCanvas(width, height);
-        ShapeStackManager.getInstance().clear();
+        ShapeListManager.getInstance().clear();
 
         // Close this stage.
         Stage stage = (Stage) errorLabel.getScene().getWindow();

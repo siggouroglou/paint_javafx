@@ -4,7 +4,7 @@ import gr.papei.computergraphics.lib.ColorUtilities;
 import gr.papei.computergraphics.lib.mainView.CanvasManager;
 import gr.papei.computergraphics.lib.mainView.Settings;
 import gr.papei.computergraphics.lib.mainView.ShapeProperties;
-import gr.papei.computergraphics.lib.mainView.ShapeStackManager;
+import gr.papei.computergraphics.lib.mainView.ShapeListManager;
 import gr.papei.computergraphics.lib.shape.initiator.LineInitiator;
 import gr.papei.computergraphics.lib.shape.model.Line;
 import java.io.IOException;
@@ -34,9 +34,11 @@ public class MainController implements Initializable {
     @FXML
     private StackPane stackPane;
     @FXML
-    private VBox shapeStackContainer;
+    private VBox shapeListContainer;
     @FXML
     private Label footerLabel;
+    @FXML
+    private Label coordinatesLabel;
     
     @FXML
     private ToggleGroup radioGroup1;
@@ -53,16 +55,17 @@ public class MainController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 //        assert scrolPane != null : "fx:id=\"scrolPane\" was not injected: check your FXML file 'Main.fxml'.";
         assert stackPane != null : "fx:id=\"stackPane\" was not injected: check your FXML file 'Main.fxml'.";
-        assert shapeStackContainer != null : "fx:id=\"shapeStackContainer\" was not injected: check your FXML file 'Main.fxml'.";
-        assert footerLabel != null : "fx:id=\"loggerLabel\" was not injected: check your FXML file 'Main.fxml'.";
+        assert shapeListContainer != null : "fx:id=\"shapeStackContainer\" was not injected: check your FXML file 'Main.fxml'.";
+        assert footerLabel != null : "fx:id=\"footerLabel\" was not injected: check your FXML file 'Main.fxml'.";
+        assert coordinatesLabel != null : "fx:id=\"coordinatesLabel\" was not injected: check your FXML file 'Main.fxml'.";
         assert shapeProperiesGridPane != null : "fx:id=\"shapeProperiesGridPane\" was not injected: check your FXML file 'Main.fxml'.";
         assert shapePropertyColor != null : "fx:id=\"shapePropertyColor\" was not injected: check your FXML file 'Main.fxml'.";
         assert shapePropertyWidth != null : "fx:id=\"shapePropertyWidth\" was not injected: check your FXML file 'Main.fxml'.";
         assert shapePropertyFill != null : "fx:id=\"shapePropertyFill\" was not injected: check your FXML file 'Main.fxml'.";
         
-        // Initialize CanvasManager and ShapeStackManager.
-        CanvasManager.initInstance(stackPane);
-        ShapeStackManager.initInstance(shapeStackContainer);
+        // Initialize CanvasManager and ShapeListManager.
+        CanvasManager.initInstance(stackPane, coordinatesLabel);
+        ShapeListManager.initInstance(shapeListContainer);
         
         // Initialize Stack pane background color.
         Color color = Color.valueOf(Settings.getInstance().getBackgroundColor());

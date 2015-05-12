@@ -9,6 +9,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Cursor;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
@@ -23,8 +24,9 @@ public final class CanvasManager {
 
     private static CanvasManager INSTANCE;
 
-    private StackPane parent;
-    private BooleanProperty drawingEnable;
+    private final StackPane parent;
+    private final Label coordinatesLabel;
+    private final BooleanProperty drawingEnable;
     private Canvas canvas;
     private ShapeInitiator shapeInitiator;
 
@@ -32,16 +34,17 @@ public final class CanvasManager {
         throw new UnsupportedOperationException("Empty constructor is not supported.");
     }
 
-    public CanvasManager(StackPane parent) {
+    public CanvasManager(StackPane parent, Label coordinatesLabel) {
         this.parent = parent;
+        this.coordinatesLabel = coordinatesLabel;
         this.drawingEnable = new SimpleBooleanProperty(false);
         this.canvas = null;
         this.shapeInitiator = null;
     }
 
-    public static CanvasManager initInstance(StackPane parent) {
+    public static CanvasManager initInstance(StackPane parent, Label coordinatesLabel) {
         if (INSTANCE == null) {
-            INSTANCE = new CanvasManager(parent);
+            INSTANCE = new CanvasManager(parent, coordinatesLabel);
         }
         return INSTANCE;
     }
@@ -59,6 +62,12 @@ public final class CanvasManager {
         canvas.setCursor(Cursor.CROSSHAIR);
         final GraphicsContext gc = canvas.getGraphicsContext2D();
         final PixelWriter pixelWriter = gc.getPixelWriter();
+
+        // Mouse mouve.
+        canvas.addEventHandler(MouseEvent.MOUSE_MOVED, (MouseEvent mouseEvent) -> {
+            // Write the correct coordinates.
+            coordinatesLabel.setText("P: " + mouseEvent.getX() + " : " + mouseEvent.getY());
+        });
 
         // Mouse click event.
         canvas.addEventHandler(MouseEvent.MOUSE_PRESSED, (MouseEvent mouseEvent) -> {
@@ -79,6 +88,9 @@ public final class CanvasManager {
 
         // Mouse drag event.
         canvas.addEventHandler(MouseEvent.MOUSE_DRAGGED, (MouseEvent mouseEvent) -> {
+            // Write the correct coordinates.
+            coordinatesLabel.setText("P: " + mouseEvent.getX() + " : " + mouseEvent.getY());
+
             if (drawingEnable.get() && mouseEvent.isPrimaryButtonDown() && shapeInitiator != null) {
                 // Clear shapes from canvas.
                 crearAllShapes();
@@ -132,7 +144,7 @@ public final class CanvasManager {
         final GraphicsContext gc = canvas.getGraphicsContext2D();
         final PixelWriter pixelWriter = gc.getPixelWriter();
 
-        for (Shape shape : ShapeStackManager.getInstance().getStack()) {
+        for (Shape shape : ShapeListManager.getInstance().getShapeList()) {
             shape.clear(pixelWriter, Color.valueOf(Settings.getInstance().getBackgroundColor()));
         }
     }
@@ -144,7 +156,7 @@ public final class CanvasManager {
         final GraphicsContext gc = canvas.getGraphicsContext2D();
         final PixelWriter pixelWriter = gc.getPixelWriter();
 
-        for (Shape shape : ShapeStackManager.getInstance().getStack()) {
+        for (Shape shape : ShapeListManager.getInstance().getShapeList()) {
             shape.draw(pixelWriter);
         }
     }

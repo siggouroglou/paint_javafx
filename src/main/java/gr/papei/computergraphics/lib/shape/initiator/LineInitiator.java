@@ -1,7 +1,7 @@
 package gr.papei.computergraphics.lib.shape.initiator;
 
 import gr.papei.computergraphics.lib.mainView.ShapeProperties;
-import gr.papei.computergraphics.lib.mainView.ShapeStackManager;
+import gr.papei.computergraphics.lib.mainView.ShapeListManager;
 import gr.papei.computergraphics.lib.shape.Point;
 import gr.papei.computergraphics.lib.shape.model.Line;
 import gr.papei.computergraphics.lib.shape.model.Shape;
@@ -36,7 +36,7 @@ public class LineInitiator implements ShapeInitiator<Shape> {
         line.setWidth(ShapeProperties.getInstance().getWidth());
         
         // This is the first click, so create the line.
-        ShapeStackManager.getInstance().add(line);
+        ShapeListManager.getInstance().add(line);
         
         return ShapeInitiatorState.DRAWING;
     }
