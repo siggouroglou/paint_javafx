@@ -2,15 +2,17 @@ package gr.papei.computergraphics.controller;
 
 import gr.papei.computergraphics.controller.help.AboutController;
 import gr.papei.computergraphics.lib.ColorUtilities;
-import gr.papei.computergraphics.lib.mainView.CanvasManager;
-import gr.papei.computergraphics.lib.mainView.Settings;
-import gr.papei.computergraphics.lib.mainView.ShapeProperties;
-import gr.papei.computergraphics.lib.mainView.ShapeListManager;
+import gr.papei.computergraphics.lib.singleton.CanvasManager;
+import gr.papei.computergraphics.lib.singleton.Settings;
+import gr.papei.computergraphics.lib.singleton.ShapeProperties;
+import gr.papei.computergraphics.lib.singleton.ShapeListManager;
 import gr.papei.computergraphics.lib.shape.initiator.LineInitiator;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +22,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
@@ -37,9 +40,13 @@ public class MainController implements Initializable {
     @FXML
     private VBox shapeListContainer;
     @FXML
+    private Label coordinatesLabel;
+    @FXML
     private Label footerLabel;
     @FXML
-    private Label coordinatesLabel;
+    private Label savedNoLabel;
+    @FXML
+    private Label savedYesLabel;
     
     @FXML
     private ToggleGroup radioGroup1;
@@ -57,8 +64,11 @@ public class MainController implements Initializable {
 //        assert scrolPane != null : "fx:id=\"scrolPane\" was not injected: check your FXML file 'Main.fxml'.";
         assert stackPane != null : "fx:id=\"stackPane\" was not injected: check your FXML file 'Main.fxml'.";
         assert shapeListContainer != null : "fx:id=\"shapeStackContainer\" was not injected: check your FXML file 'Main.fxml'.";
-        assert footerLabel != null : "fx:id=\"footerLabel\" was not injected: check your FXML file 'Main.fxml'.";
         assert coordinatesLabel != null : "fx:id=\"coordinatesLabel\" was not injected: check your FXML file 'Main.fxml'.";
+        assert footerLabel != null : "fx:id=\"footerLabel\" was not injected: check your FXML file 'Main.fxml'.";
+        assert savedNoLabel != null : "fx:id=\"savedNoLabel\" was not injected: check your FXML file 'Main.fxml'.";
+        assert savedYesLabel != null : "fx:id=\"savedYesLabel\" was not injected: check your FXML file 'Main.fxml'.";
+        
         assert shapeProperiesGridPane != null : "fx:id=\"shapeProperiesGridPane\" was not injected: check your FXML file 'Main.fxml'.";
         assert shapePropertyColor != null : "fx:id=\"shapePropertyColor\" was not injected: check your FXML file 'Main.fxml'.";
         assert shapePropertyWidth != null : "fx:id=\"shapePropertyWidth\" was not injected: check your FXML file 'Main.fxml'.";
@@ -82,8 +92,12 @@ public class MainController implements Initializable {
         shapePropertyWidth.valueProperty().bindBidirectional(ShapeProperties.getInstance().widthProperty());
         shapePropertyFill.valueProperty().bindBidirectional(ShapeProperties.getInstance().fillProperty());
         
-        // Bind CanvasManager drawingEnable property.
-        CanvasManager.getInstance().drawingEnable().bind(Bindings.isNotNull(radioGroup1.selectedToggleProperty()));
+        // Bind CanvasManager drawingEnableProperty property.
+        CanvasManager.getInstance().drawingEnableProperty().bind(Bindings.isNotNull(radioGroup1.selectedToggleProperty()));
+        
+        // Bind savadNo and savedYes properties to canvas.
+        savedYesLabel.visibleProperty().bind(CanvasManager.getInstance().savedProperty());
+        savedNoLabel.visibleProperty().bind(CanvasManager.getInstance().savedProperty().isEqualTo(new SimpleBooleanProperty(false)));
     }
 
     private Stage getStage() {
@@ -150,7 +164,7 @@ public class MainController implements Initializable {
 
     @FXML
     void fileSaveClick(ActionEvent event) {
-        
+        CanvasManager.getInstance().savedProperty().set(true);
     }
 
     @FXML

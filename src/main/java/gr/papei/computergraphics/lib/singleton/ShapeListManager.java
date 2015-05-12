@@ -1,5 +1,6 @@
-package gr.papei.computergraphics.lib.mainView;
+package gr.papei.computergraphics.lib.singleton;
 
+import gr.papei.computergraphics.lib.mainView.ShapeListItem;
 import gr.papei.computergraphics.lib.shape.model.Shape;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +54,9 @@ public final class ShapeListManager {
         // Add a new ShapeListItem into the view.
         ShapeListItem item = new ShapeListItem(shape);
         shapeListContainer.getChildren().add(item.getHBox());
+
+        // Change the saved state. Create shape.
+        CanvasManager.getInstance().savedProperty().set(false);
     }
 
     public void remove(Shape shape, HBox hbox) {
@@ -61,9 +65,12 @@ public final class ShapeListManager {
 
         // Remove from view.
         shapeListContainer.getChildren().remove(hbox);
+
+        // Change the saved state. Delete shape.
+        CanvasManager.getInstance().savedProperty().set(false);
     }
 
-    public void reDraw(Shape shape) {
+    public void reDrawShape(Shape shape) {
         int index = shapeList.indexOf(shape);
         if (index < 0 || index >= shapeList.size()) {
             return;
@@ -76,6 +83,9 @@ public final class ShapeListManager {
         ShapeListItem item = new ShapeListItem(shape);
         HBox hBoxNew = item.getHBox();
         shapeListContainer.getChildren().add(index, hBoxNew);
+
+        // Change the saved state. Edit shape.
+        CanvasManager.getInstance().savedProperty().set(false);
     }
 
     public Iterable<Shape> getShapeList() {
@@ -97,6 +107,9 @@ public final class ShapeListManager {
         // Add the source above of target.
         shapeListContainer.getChildren().add(targetIndex, sourceNode);
         shapeList.add(targetIndex, sourceShape);
+
+        // Change the saved state. Edit shape.
+        CanvasManager.getInstance().savedProperty().set(false);
     }
 
     public int indexOfHBox(HBox hBox) {

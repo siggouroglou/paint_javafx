@@ -1,7 +1,7 @@
 package gr.papei.computergraphics.controller.file;
 
-import gr.papei.computergraphics.lib.mainView.CanvasManager;
-import gr.papei.computergraphics.lib.mainView.ShapeListManager;
+import gr.papei.computergraphics.lib.singleton.CanvasManager;
+import gr.papei.computergraphics.lib.singleton.ShapeListManager;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;

@@ -1,8 +1,8 @@
 package gr.papei.computergraphics.controller;
 
-import gr.papei.computergraphics.lib.mainView.CanvasManager;
-import gr.papei.computergraphics.lib.mainView.Settings;
-import gr.papei.computergraphics.lib.mainView.ShapeProperties;
+import gr.papei.computergraphics.lib.singleton.CanvasManager;
+import gr.papei.computergraphics.lib.singleton.Settings;
+import gr.papei.computergraphics.lib.singleton.ShapeProperties;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;

@@ -87,18 +87,22 @@
             </MenuBar>
          </top>
          <bottom>
-            <HBox id="footerContainer" alignment="CENTER_LEFT" prefHeight="30.0" spacing="20.0" BorderPane.alignment="CENTER">
-               <BorderPane.margin>
-                  <Insets top="5.0" />
-               </BorderPane.margin>
+            <GridPane id="footerContainer">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" minWidth="10.0" prefWidth="120.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="140.0" minWidth="10.0" prefWidth="140.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+               </rowConstraints>
                <children>
+                  <Label fx:id="footerLabel" GridPane.columnIndex="1" />
                   <Label fx:id="coordinatesLabel" text="P: 0 x 0" />
-                  <Label fx:id="footerLabel" />
+                  <Label fx:id="savedYesLabel" text="Αποθηκευμένο" GridPane.columnIndex="2" />
+                  <Label fx:id="savedNoLabel" text="Μη Αποθηκευμένο" GridPane.columnIndex="2" />
                </children>
-               <padding>
-                  <Insets left="10.0" right="10.0" />
-               </padding>
-            </HBox>
+            </GridPane>
          </bottom>
          <left>
             <VBox prefWidth="160.0" BorderPane.alignment="CENTER">

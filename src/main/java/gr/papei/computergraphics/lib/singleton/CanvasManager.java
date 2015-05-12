@@ -1,4 +1,4 @@
-package gr.papei.computergraphics.lib.mainView;
+package gr.papei.computergraphics.lib.singleton;
 
 import gr.papei.computergraphics.lib.ColorUtilities;
 import gr.papei.computergraphics.lib.shape.initiator.ShapeInitiator;
@@ -27,6 +27,7 @@ public final class CanvasManager {
     private final StackPane parent;
     private final Label coordinatesLabel;
     private final BooleanProperty drawingEnable;
+    private final BooleanProperty saved;
     private Canvas canvas;
     private ShapeInitiator shapeInitiator;
 
@@ -38,6 +39,7 @@ public final class CanvasManager {
         this.parent = parent;
         this.coordinatesLabel = coordinatesLabel;
         this.drawingEnable = new SimpleBooleanProperty(false);
+        this.saved = new SimpleBooleanProperty(false);
         this.canvas = null;
         this.shapeInitiator = null;
     }
@@ -55,6 +57,14 @@ public final class CanvasManager {
 
     public Canvas getCanvas() {
         return canvas;
+    }
+
+    public BooleanProperty drawingEnableProperty() {
+        return drawingEnable;
+    }
+
+    public BooleanProperty savedProperty() {
+        return saved;
     }
 
     public void resetCanvas(int width, int height) {
@@ -83,6 +93,9 @@ public final class CanvasManager {
 
                 // Draw shapes to canvas.
                 drawAllShapes();
+
+                // Change the saved state.
+                saved.set(false);
             }
         });
 
@@ -103,6 +116,9 @@ public final class CanvasManager {
 
                 // Draw shapes to canvas.
                 drawAllShapes();
+
+                // Change the saved state.
+                saved.set(false);
             }
         });
 
@@ -120,6 +136,9 @@ public final class CanvasManager {
 
                 // Draw shapes to canvas.
                 drawAllShapes();
+
+                // Change the saved state.
+                saved.set(false);
             }
         });
 
@@ -131,10 +150,6 @@ public final class CanvasManager {
     public void startDrawing(ShapeInitiator shapeInitiator) {
         this.shapeInitiator = shapeInitiator;
         this.shapeInitiator.initialize();
-    }
-
-    public BooleanProperty drawingEnable() {
-        return drawingEnable;
     }
 
     private void crearAllShapes() {
@@ -179,5 +194,8 @@ public final class CanvasManager {
 
         // Draw the new background.
         canvas.getParent().setStyle("-fx-background-color: " + ColorUtilities.colorToWeb(color));
+
+        // Change the saved state.
+        saved.set(false);
     }
 }

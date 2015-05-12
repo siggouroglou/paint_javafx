@@ -1,7 +1,7 @@
 package gr.papei.computergraphics.controller.shapeEdit;
 
-import gr.papei.computergraphics.lib.mainView.CanvasManager;
-import gr.papei.computergraphics.lib.mainView.ShapeListManager;
+import gr.papei.computergraphics.lib.singleton.CanvasManager;
+import gr.papei.computergraphics.lib.singleton.ShapeListManager;
 import gr.papei.computergraphics.lib.shape.Point;
 import gr.papei.computergraphics.lib.shape.model.Line;
 import java.net.URL;
@@ -89,7 +89,7 @@ public class LineEditController implements Initializable {
         CanvasManager.getInstance().refreshCanvas();
         
         // Redraw the shapeListItem, in case of a color change.
-        ShapeListManager.getInstance().reDraw(line);
+        ShapeListManager.getInstance().reDrawShape(line);
         
         line = null; //remove reference.
 

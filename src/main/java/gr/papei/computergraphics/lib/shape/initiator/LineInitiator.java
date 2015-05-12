@@ -1,7 +1,7 @@
 package gr.papei.computergraphics.lib.shape.initiator;
 
-import gr.papei.computergraphics.lib.mainView.ShapeProperties;
-import gr.papei.computergraphics.lib.mainView.ShapeListManager;
+import gr.papei.computergraphics.lib.singleton.ShapeProperties;
+import gr.papei.computergraphics.lib.singleton.ShapeListManager;
 import gr.papei.computergraphics.lib.shape.Point;
 import gr.papei.computergraphics.lib.shape.model.Line;
 import gr.papei.computergraphics.lib.shape.model.Shape;

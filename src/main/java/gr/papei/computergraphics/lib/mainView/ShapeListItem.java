@@ -1,29 +1,27 @@
 package gr.papei.computergraphics.lib.mainView;
 
+import gr.papei.computergraphics.lib.singleton.CanvasManager;
+import gr.papei.computergraphics.lib.singleton.ShapeListManager;
 import gr.papei.computergraphics.lib.ColorUtilities;
 import gr.papei.computergraphics.lib.shape.model.Shape;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.DataFormat;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 /**
  *
@@ -72,7 +70,11 @@ public class ShapeListItem {
         // Menu Edit.
         MenuItem menuItem1 = new MenuItem("Επεξεργασία");
         menuItem1.setOnAction((ActionEvent e) -> {
-            shape.getEditStrategy().createContextEdit();
+            try {
+                shape.getEditStrategy().createContextEdit();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         });
         contextMenu.getItems().add(menuItem1);
 
@@ -80,7 +82,6 @@ public class ShapeListItem {
         MenuItem menuItem2 = new MenuItem("Διαγραφή");
         menuItem2.setOnAction((ActionEvent e) -> {
             ShapeListManager.getInstance().remove(shape, hBox);
-            CanvasManager.getInstance().refreshCanvas();
         });
         contextMenu.getItems().add(menuItem2);
 
@@ -147,13 +148,13 @@ public class ShapeListItem {
             if (sourceHBox != null) {
                 int sourceIndex = ShapeListManager.getInstance().indexOfHBox(sourceHBox);
                 int targetIndex = ShapeListManager.getInstance().indexOfHBox(hBox);
-                
+
                 // Make the transfering.
                 ShapeListManager.getInstance().transerSourceUpToTarget(sourceIndex, targetIndex);
-                
+
                 // Refresh shapes.
                 CanvasManager.getInstance().refreshShapes();
-                
+
                 event.setDropCompleted(true);
             }
 

@@ -1,30 +1,15 @@
 package gr.papei.computergraphics.lib.shape.model;
 
 import gr.papei.computergraphics.controller.shapeEdit.LineEditController;
-import gr.papei.computergraphics.lib.ColorUtilities;
-import gr.papei.computergraphics.lib.mainView.CanvasManager;
+import gr.papei.computergraphics.lib.singleton.CanvasManager;
 import gr.papei.computergraphics.lib.mainView.ShapeListItemEditStrategy;
-import gr.papei.computergraphics.lib.mainView.ShapeListManager;
 import gr.papei.computergraphics.lib.shape.Point;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
-import javafx.geometry.Side;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -179,20 +164,16 @@ public final class Line implements Shape {
             lineEditStage.setTitle("Επεξεργασία Γραμμής");
             lineEditStage.getIcons().add(new Image("/files/images/unipi_logo.jpg"));
             lineEditStage.setResizable(false);
-            
+
             // Load the view.
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/frames/shapeEdit/LineEdit.fxml"));
-            try {
-                Parent root = (Parent) loader.load();
-                lineEditStage.setScene(new Scene(root));
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-            
+            Parent root = (Parent) loader.load();
+            lineEditStage.setScene(new Scene(root));
+
             // Set the contollerreference to this line.
             LineEditController controller = (LineEditController) loader.getController();
             controller.setLine(line);
-            
+
             /// Show it.
             lineEditStage.show();
         };
@@ -207,9 +188,9 @@ public final class Line implements Shape {
     public Color getShapeColor() {
         return this.lineColor;
     }
-    
+
     @Override
-    public String getShapeTitle(){
+    public String getShapeTitle() {
         return "Γραμμή";
     }
 }

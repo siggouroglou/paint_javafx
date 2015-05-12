@@ -1,4 +1,4 @@
-package gr.papei.computergraphics.lib.mainView;
+package gr.papei.computergraphics.lib.singleton;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
@@ -7,10 +7,11 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.paint.Color;
 
 /**
- *
+ * A singleton that is binding to the main scene shape properties color, width and fill.
+ * 
  * @author siggouroglou@gmail.com
  */
-public class ShapeProperties {
+public final class ShapeProperties {
 
     private static ShapeProperties INSTANCE;
 

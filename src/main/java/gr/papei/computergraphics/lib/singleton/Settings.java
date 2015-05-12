@@ -1,4 +1,4 @@
-package gr.papei.computergraphics.lib.mainView;
+package gr.papei.computergraphics.lib.singleton;
 
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -10,7 +10,7 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 /**
- * Singleton class that store settings synced with a file.
+ * Singleton class that stores settings synced with a file.
  *
  * @author siggouroglou@gmail.com
  */
