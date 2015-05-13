@@ -1,4 +1,4 @@
-package gr.papei.computergraphics.controller;
+package gr.papei.computergraphics.controller.edit;
 
 import gr.papei.computergraphics.lib.singleton.CanvasManager;
 import gr.papei.computergraphics.lib.singleton.Settings;

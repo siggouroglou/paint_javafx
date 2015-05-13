@@ -14,7 +14,6 @@ import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,6 +23,8 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
@@ -55,7 +56,7 @@ public class MainController implements Initializable {
     private Label savedYesLabel;
 
     @FXML
-    private ToggleGroup radioGroup1;
+    private ToggleGroup toggleGroup;
     @FXML
     private GridPane shapeProperiesGridPane;
     @FXML
@@ -88,19 +89,23 @@ public class MainController implements Initializable {
         ShapeProperties.getInstance().widthProperty().set(Settings.getInstance().getDesignWidth());
 
         // Bind shape properties to shape toogle buttons.
-        shapeProperiesGridPane.visibleProperty().bind(Bindings.isNotNull(radioGroup1.selectedToggleProperty()));
+        shapeProperiesGridPane.visibleProperty().bind(Bindings.isNotNull(toggleGroup.selectedToggleProperty()));
         shapePropertyColor.valueProperty().bindBidirectional(ShapeProperties.getInstance().colorProperty());
         shapePropertyWidth.valueProperty().bindBidirectional(ShapeProperties.getInstance().widthProperty());
         shapePropertyFill.valueProperty().bindBidirectional(ShapeProperties.getInstance().fillProperty());
 
         // Bind CanvasManager drawingEnableProperty property.
-        CanvasManager.getInstance().drawingEnableProperty().bind(Bindings.isNotNull(radioGroup1.selectedToggleProperty()));
+        CanvasManager.getInstance().drawingEnableProperty().bind(Bindings.isNotNull(toggleGroup.selectedToggleProperty()));
 
         // Bind savadNo and savedYes properties to canvas.
         savedYesLabel.visibleProperty().bind(Bindings.and(CanvasManager.getInstance().canvasInitializedProperty(), IOUtilities.savedProperty()));
         savedNoLabel.visibleProperty().bind(Bindings.and(CanvasManager.getInstance().canvasInitializedProperty(), IOUtilities.savedProperty().isEqualTo(new SimpleBooleanProperty(false))));
 
-        // On stage cloas event.
+        // Toggle buttons enable property bind to canvas initialization property.
+        for(Toggle toggle : toggleGroup.getToggles()) {
+            ToggleButton button = (ToggleButton) toggle;
+            button.disableProperty().bind(CanvasManager.getInstance().canvasInitializedProperty().isEqualTo(new SimpleBooleanProperty(false)));
+        }
     }
 
     public void setStage(Stage stage) {
@@ -320,7 +325,7 @@ public class MainController implements Initializable {
         editSettingsStage.setResizable(false);
 
         // Load the view.
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/frames/EditSettings.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/frames/edit/EditSettings.fxml"));
         Parent root = (Parent) loader.load();
         editSettingsStage.setScene(new Scene(root));
 

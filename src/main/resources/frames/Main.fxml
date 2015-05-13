@@ -109,28 +109,28 @@
                      <children>
                         <ToggleButton id="shapeLineButton" mnemonicParsing="false" onAction="#shapeLineClick" styleClass="palet-button">
                            <toggleGroup>
-                              <ToggleGroup fx:id="radioGroup1" />
+                              <ToggleGroup fx:id="toggleGroup" />
                            </toggleGroup>
                            <tooltip>
                               <Tooltip text="Σχεδίαση Γραμμής" />
                            </tooltip></ToggleButton>
-                        <ToggleButton id="shapeCircleButton" mnemonicParsing="false" onAction="#shapeCircleClick" toggleGroup="$radioGroup1">
+                        <ToggleButton id="shapeCircleButton" mnemonicParsing="false" onAction="#shapeCircleClick" toggleGroup="$toggleGroup">
                            <tooltip>
                               <Tooltip text="Σχεδίαση Κύκλου" />
                            </tooltip></ToggleButton>
-                        <ToggleButton id="shapeTriangleButton" mnemonicParsing="false" onAction="#shapeTriangleAction" toggleGroup="$radioGroup1">
+                        <ToggleButton id="shapeTriangleButton" mnemonicParsing="false" onAction="#shapeTriangleAction" toggleGroup="$toggleGroup">
                            <tooltip>
                               <Tooltip text="Σχεδίαση Τριγώνου" />
                            </tooltip></ToggleButton>
-                        <ToggleButton id="shapeSquareButton" mnemonicParsing="false" onAction="#shapeSquareClick" toggleGroup="$radioGroup1">
+                        <ToggleButton id="shapeSquareButton" mnemonicParsing="false" onAction="#shapeSquareClick" toggleGroup="$toggleGroup">
                            <tooltip>
                               <Tooltip text="Σχεδίαση Τετραγώνου" />
                            </tooltip></ToggleButton>
-                        <ToggleButton id="shapeCrookedLineButton" mnemonicParsing="false" onAction="#shapeCrookedLineClick" toggleGroup="$radioGroup1">
+                        <ToggleButton id="shapeCrookedLineButton" mnemonicParsing="false" onAction="#shapeCrookedLineClick" toggleGroup="$toggleGroup">
                            <tooltip>
                               <Tooltip text="Σχεδίαση Τεθλασμένης Γραμμής" />
                            </tooltip></ToggleButton>
-                        <ToggleButton id="shapePolygonButton" mnemonicParsing="false" onAction="#shapePolygonClick" toggleGroup="$radioGroup1">
+                        <ToggleButton id="shapePolygonButton" mnemonicParsing="false" onAction="#shapePolygonClick" toggleGroup="$toggleGroup">
                            <tooltip>
                               <Tooltip text="Σχεδίαση Πολυγώνου" />
                            </tooltip></ToggleButton>

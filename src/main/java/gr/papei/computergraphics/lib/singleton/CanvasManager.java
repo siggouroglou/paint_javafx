@@ -207,7 +207,6 @@ public final class CanvasManager {
     public void removeCanvas() {
         parent.setContent(null);
         canvas = null;
-        drawingEnable.set(false);
         canvasInitialized.set(false);
     }
 
