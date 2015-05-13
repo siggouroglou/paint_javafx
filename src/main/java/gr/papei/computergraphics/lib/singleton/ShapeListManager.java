@@ -91,7 +91,7 @@ public final class ShapeListManager {
         IOUtilities.savedProperty().set(false);
     }
 
-    public Iterable<Shape> getShapeList() {
+    public List<Shape> getShapeList() {
         return shapeList;
     }
 
@@ -121,5 +121,16 @@ public final class ShapeListManager {
         }
         
         return shapeListContainer.getChildren().indexOf(hBox);
+    }
+
+    void addAllShapes(List<Shape> shapeList) {
+        if(shapeList == null) {
+            throw new IllegalArgumentException("Shapelist must not be null");
+        }
+        
+        // Append them to the current list them all.
+        shapeList.stream().forEach((shape) -> {
+            add(shape);
+        });
     }
 }

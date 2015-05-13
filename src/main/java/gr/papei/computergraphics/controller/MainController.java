@@ -21,6 +21,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.control.Toggle;
@@ -41,6 +43,19 @@ import org.controlsfx.dialog.Dialogs;
 public class MainController implements Initializable {
 
     private Stage stage;
+    
+    @FXML
+    private MenuItem fileSaveAsMenu;
+    @FXML
+    private MenuItem fileExportMenu;
+    @FXML
+    private MenuItem fileImportMenu;
+    @FXML
+    private MenuItem fileSaveMenu;
+    @FXML
+    private MenuItem fileCloseMenu;
+    @FXML
+    private Menu editDesignMenu;
 
     @FXML
     private ScrollPane scrollPane;
@@ -68,7 +83,13 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        assert scrollPane != null : "fx:id=\"scrollPane\" was not injected: check your FXML file 'Main.fxml'.";
+        assert fileSaveAsMenu != null : "fx:id=\"fileSaveAsMenu\" was not injected: check your FXML file 'Main.fxml'.";
+        assert fileExportMenu != null : "fx:id=\"fileExportMenu\" was not injected: check your FXML file 'Main.fxml'.";
+        assert fileImportMenu != null : "fx:id=\"fileImportMenu\" was not injected: check your FXML file 'Main.fxml'.";
+        assert fileSaveMenu != null : "fx:id=\"fileSaveMenu\" was not injected: check your FXML file 'Main.fxml'.";
+        assert fileCloseMenu != null : "fx:id=\"fileCloseMenu\" was not injected: check your FXML file 'Main.fxml'.";
+        assert editDesignMenu != null : "fx:id=\"editDesignMenu\" was not injected: check your FXML file 'Main.fxml'.";
+        
         assert shapeListContainer != null : "fx:id=\"shapeStackContainer\" was not injected: check your FXML file 'Main.fxml'.";
         assert coordinatesLabel != null : "fx:id=\"coordinatesLabel\" was not injected: check your FXML file 'Main.fxml'.";
         assert footerLabel != null : "fx:id=\"footerLabel\" was not injected: check your FXML file 'Main.fxml'.";
@@ -89,7 +110,8 @@ public class MainController implements Initializable {
         ShapeProperties.getInstance().widthProperty().set(Settings.getInstance().getDesignWidth());
 
         // Bind shape properties to shape toogle buttons.
-        shapeProperiesGridPane.visibleProperty().bind(Bindings.isNotNull(toggleGroup.selectedToggleProperty()));
+        shapeProperiesGridPane.visibleProperty().bind(Bindings.isNotNull(toggleGroup.selectedToggleProperty())
+                                            .and(CanvasManager.getInstance().canvasInitializedProperty()));
         shapePropertyColor.valueProperty().bindBidirectional(ShapeProperties.getInstance().colorProperty());
         shapePropertyWidth.valueProperty().bindBidirectional(ShapeProperties.getInstance().widthProperty());
         shapePropertyFill.valueProperty().bindBidirectional(ShapeProperties.getInstance().fillProperty());
@@ -105,6 +127,16 @@ public class MainController implements Initializable {
         for(Toggle toggle : toggleGroup.getToggles()) {
             ToggleButton button = (ToggleButton) toggle;
             button.disableProperty().bind(CanvasManager.getInstance().canvasInitializedProperty().isEqualTo(new SimpleBooleanProperty(false)));
+        }
+        
+        // Disable menu items when canvas is not initialized.
+        fileSaveAsMenu.disableProperty().bind(CanvasManager.getInstance().canvasInitializedProperty().isEqualTo(new SimpleBooleanProperty(false)));
+        fileExportMenu.disableProperty().bind(CanvasManager.getInstance().canvasInitializedProperty().isEqualTo(new SimpleBooleanProperty(false)));
+        fileImportMenu.disableProperty().bind(CanvasManager.getInstance().canvasInitializedProperty().isEqualTo(new SimpleBooleanProperty(false)));
+        fileSaveMenu.disableProperty().bind(CanvasManager.getInstance().canvasInitializedProperty().isEqualTo(new SimpleBooleanProperty(false)));
+        fileCloseMenu.disableProperty().bind(CanvasManager.getInstance().canvasInitializedProperty().isEqualTo(new SimpleBooleanProperty(false)));
+        for(MenuItem menuItem : editDesignMenu.getItems()) {
+            menuItem.disableProperty().bind(CanvasManager.getInstance().canvasInitializedProperty().isEqualTo(new SimpleBooleanProperty(false)));
         }
     }
 
@@ -236,7 +268,7 @@ public class MainController implements Initializable {
     @FXML
     void fileImportClick(ActionEvent event) {
         // Check if the current canvas is saved.
-        if (!IOUtilities.savedProperty().get()) {
+        if (!IOUtilities.savedProperty().get() && CanvasManager.getInstance().canvasInitializedProperty().get()) {
             IOUtilities.questionForSave(getStage());
         }
 
@@ -295,21 +327,6 @@ public class MainController implements Initializable {
 
     @FXML
     void editShapePolygonClick(ActionEvent event) {
-
-    }
-
-    @FXML
-    void editColorFontClick(ActionEvent event) {
-
-    }
-
-    @FXML
-    void editColorDesignClick(ActionEvent event) {
-
-    }
-
-    @FXML
-    void editColorFillClick(ActionEvent event) {
 
     }
 

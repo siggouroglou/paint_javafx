@@ -22,24 +22,24 @@
                               <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                            </accelerator>
                         </MenuItem>
-                        <MenuItem mnemonicParsing="false" onAction="#fileSaveClick" text="Αποθηκευση">
+                        <MenuItem fx:id="fileSaveMenu" mnemonicParsing="false" onAction="#fileSaveClick" text="Αποθηκευση">
                            <accelerator>
                               <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                            </accelerator>
                         </MenuItem>
-                        <MenuItem mnemonicParsing="false" onAction="#fileSaveAsClick" text="Αποθηκευση Ως">
+                        <MenuItem fx:id="fileSaveAsMenu" mnemonicParsing="false" onAction="#fileSaveAsClick" text="Αποθηκευση Ως">
                            <accelerator>
                               <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
                            </accelerator>
                         </MenuItem>
-                        <MenuItem mnemonicParsing="false" onAction="#fileCloseClick" text="Κλεισιμο">
+                        <MenuItem fx:id="fileCloseMenu" mnemonicParsing="false" onAction="#fileCloseClick" text="Κλεισιμο">
                            <accelerator>
                               <KeyCodeCombination alt="UP" code="W" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                            </accelerator>
                         </MenuItem>
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" onAction="#fileExportClick" text="Εξαγωγη" />
-                        <MenuItem mnemonicParsing="false" onAction="#fileImportClick" text="Εισαγωγη" />
+                        <MenuItem fx:id="fileExportMenu" mnemonicParsing="false" onAction="#fileExportClick" text="Εξαγωγη" />
+                        <MenuItem fx:id="fileImportMenu" mnemonicParsing="false" onAction="#fileImportClick" text="Εισαγωγη" />
                         <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem mnemonicParsing="false" onAction="#fileQuitClick" text="Εξοδος">
                            <accelerator>
@@ -50,7 +50,7 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Επεξεργασια">
                   <items>
-                        <Menu mnemonicParsing="false" text="Σχεδιαση">
+                        <Menu fx:id="editDesignMenu" mnemonicParsing="false" text="Σχεδιαση">
                           <items>
                             <MenuItem mnemonicParsing="false" onAction="#editShapeLineClick" text="Ευθυγραμμο Τμημα" />
                               <MenuItem mnemonicParsing="false" onAction="#editShapeCicleClick" text="Κυκλος" />
@@ -58,13 +58,6 @@
                               <MenuItem mnemonicParsing="false" onAction="#editShapeSquareClick" text="Τετραγωνο" />
                               <MenuItem mnemonicParsing="false" onAction="#editShapeCrookedLineClick" text="Τεθλασμενη Γραμμη" />
                               <MenuItem mnemonicParsing="false" onAction="#editShapePolygonClick" text="Πολυγωνο" />
-                          </items>
-                        </Menu>
-                        <Menu mnemonicParsing="false" text="Χρωματα">
-                          <items>
-                            <MenuItem mnemonicParsing="false" onAction="#editColorFontClick" text="Χρωμα Φοντου" />
-                              <MenuItem mnemonicParsing="false" onAction="#editColorDesignClick" text="Χρωμα Σχεδιασης" />
-                              <MenuItem mnemonicParsing="false" onAction="#editColorFillClick" text="Χρωμα Σκιασης" />
                           </items>
                         </Menu>
                     <MenuItem mnemonicParsing="false" onAction="#editSettingsClick" text="Ρυθμισεις" />

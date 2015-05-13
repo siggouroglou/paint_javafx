@@ -205,9 +205,13 @@ public final class CanvasManager {
     }
 
     public void removeCanvas() {
+        // Remove the canvas.
         parent.setContent(null);
         canvas = null;
         canvasInitialized.set(false);
+        
+        // Reset the ShapeList.
+        ShapeListManager.getInstance().clear();
     }
 
     public void changeBackgroundColor(Color color) {

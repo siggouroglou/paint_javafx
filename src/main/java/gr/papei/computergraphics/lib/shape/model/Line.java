@@ -5,7 +5,6 @@ import gr.papei.computergraphics.controller.shapeEdit.LineEditController;
 import gr.papei.computergraphics.lib.singleton.CanvasManager;
 import gr.papei.computergraphics.lib.mainView.ShapeListItemEditStrategy;
 import gr.papei.computergraphics.lib.shape.Point;
-import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -178,6 +177,11 @@ public final class Line implements Shape {
             /// Show it.
             lineEditStage.show();
         };
+    }
+
+    @Override
+    public String getClassName() {
+        return "Line";
     }
 
     @Override

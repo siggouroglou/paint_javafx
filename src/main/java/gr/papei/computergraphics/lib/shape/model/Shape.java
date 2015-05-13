@@ -10,6 +10,7 @@ import javafx.scene.paint.Color;
  */
 public interface Shape {
     // Properties.
+    public String getClassName();
     public String getImageFilePath();
     public Color getShapeColor();
     public String getShapeTitle();

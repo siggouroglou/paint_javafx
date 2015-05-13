@@ -1,0 +1,5 @@
+0x000000ff
+Line={"from":{"x":57,"y":34},"to":{"x":403,"y":50},"lineColor":{"red":1.0,"green":1.0,"blue":1.0,"opacity":1.0,"platformPaint":{"argb":-1,"r":1.0,"g":1.0,"b":1.0,"a":1.0,"type":"COLOR","proportional":false,"isMutable":false}},"width":5.0}
+Line={"from":{"x":59,"y":53},"to":{"x":302,"y":326},"lineColor":{"red":1.0,"green":1.0,"blue":1.0,"opacity":1.0,"platformPaint":{"argb":-1.0,"r":1.0,"g":1.0,"b":1.0,"a":1.0,"type":"COLOR","proportional":false,"isMutable":false}},"width":5.0}
+Line={"from":{"x":336,"y":86},"to":{"x":165,"y":400},"lineColor":{"red":0.9019608,"green":0.3019608,"blue":0.3019608,"opacity":1.0,"platformPaint":{"argb":-1684147.0,"r":0.9019608,"g":0.3019608,"b":0.3019608,"a":1.0,"type":"COLOR","proportional":false,"isMutable":false}},"width":5.0}
+Line={"from":{"x":157,"y":81},"to":{"x":142,"y":380},"lineColor":{"red":0.4,"green":0.3019608,"blue":0.7019608,"opacity":1.0,"platformPaint":{"argb":-1.0072653E7,"r":0.4,"g":0.3019608,"b":0.7019608,"a":1.0,"type":"COLOR","proportional":false,"isMutable":false}},"width":5.0}
