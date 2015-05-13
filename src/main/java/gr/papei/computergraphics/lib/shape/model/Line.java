@@ -1,5 +1,6 @@
 package gr.papei.computergraphics.lib.shape.model;
 
+import com.google.gson.Gson;
 import gr.papei.computergraphics.controller.shapeEdit.LineEditController;
 import gr.papei.computergraphics.lib.singleton.CanvasManager;
 import gr.papei.computergraphics.lib.mainView.ShapeListItemEditStrategy;
@@ -192,5 +193,13 @@ public final class Line implements Shape {
     @Override
     public String getShapeTitle() {
         return "Γραμμή";
+    }
+
+    @Override
+    public String exportToJson() {
+        Gson gson = new Gson();
+        String json = gson.toJson(this);
+        
+        return json;
     }
 }

@@ -56,7 +56,7 @@ public final class ShapeListManager {
         shapeListContainer.getChildren().add(item.getHBox());
 
         // Change the saved state. Create shape.
-        CanvasManager.getInstance().savedProperty().set(false);
+        IOUtilities.savedProperty().set(false);
     }
 
     public void remove(Shape shape, HBox hbox) {
@@ -65,9 +65,12 @@ public final class ShapeListManager {
 
         // Remove from view.
         shapeListContainer.getChildren().remove(hbox);
+        
+        // Redraw the canvas.
+        CanvasManager.getInstance().refreshCanvas();
 
         // Change the saved state. Delete shape.
-        CanvasManager.getInstance().savedProperty().set(false);
+        IOUtilities.savedProperty().set(false);
     }
 
     public void reDrawShape(Shape shape) {
@@ -85,7 +88,7 @@ public final class ShapeListManager {
         shapeListContainer.getChildren().add(index, hBoxNew);
 
         // Change the saved state. Edit shape.
-        CanvasManager.getInstance().savedProperty().set(false);
+        IOUtilities.savedProperty().set(false);
     }
 
     public Iterable<Shape> getShapeList() {
@@ -109,7 +112,7 @@ public final class ShapeListManager {
         shapeList.add(targetIndex, sourceShape);
 
         // Change the saved state. Edit shape.
-        CanvasManager.getInstance().savedProperty().set(false);
+        IOUtilities.savedProperty().set(false);
     }
 
     public int indexOfHBox(HBox hBox) {

@@ -50,8 +50,8 @@
                   <Insets top="20.0" />
                </VBox.margin>
                <children>
-                  <Button mnemonicParsing="false" onAction="#cancelClick" text="Ακυρο" />
-                  <Button mnemonicParsing="false" onAction="#createClick" text="Δημιουργια" />
+                  <Button cancelButton="true" mnemonicParsing="false" onAction="#cancelClick" text="Ακυρο" />
+                  <Button defaultButton="true" mnemonicParsing="false" onAction="#createClick" text="Δημιουργια" />
                </children>
             </HBox>
          </children>

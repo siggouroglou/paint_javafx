@@ -1,7 +1,6 @@
 package gr.papei.computergraphics.lib.shape.model;
 
 import gr.papei.computergraphics.lib.mainView.ShapeListItemEditStrategy;
-import java.io.IOException;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.paint.Color;
 
@@ -21,4 +20,6 @@ public interface Shape {
     
     // Context Menu.
     public ShapeListItemEditStrategy getEditStrategy();
+
+    public String exportToJson();
 }

@@ -125,6 +125,7 @@ public class ShapeListItem {
         hBox.setOnDragEntered((DragEvent event) -> {
             // Show to the user that it is an actual gesture target.
             if (event.getGestureSource() != hBox && event.getDragboard().hasString()) {
+                hBox.setStyle("-fx-border-color: #A0A0A0;");
                 hBox.setStyle("-fx-border-width:  5 5 5 5;");
             }
 
@@ -135,6 +136,7 @@ public class ShapeListItem {
         hBox.setOnDragExited((DragEvent event) -> {
             // Show to the user that it is an actual gesture target.
             if (event.getGestureSource() != hBox && event.getDragboard().hasString()) {
+                hBox.setStyle("-fx-border-color: #D7D7D7;");
                 hBox.setStyle("-fx-border-width:  1 1 1 1;");
             }
 

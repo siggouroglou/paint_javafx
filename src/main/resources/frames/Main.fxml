@@ -22,11 +22,6 @@
                               <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                            </accelerator>
                         </MenuItem>
-                        <MenuItem mnemonicParsing="false" onAction="#fileOpenClick" text="Ανοιγμα..">
-                           <accelerator>
-                              <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                           </accelerator>
-                        </MenuItem>
                         <MenuItem mnemonicParsing="false" onAction="#fileSaveClick" text="Αποθηκευση">
                            <accelerator>
                               <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
@@ -170,13 +165,10 @@
             </VBox>
          </left>
          <center>
-            <ScrollPane fx:id="scrolPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <ScrollPane fx:id="scrollPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets left="5.0" right="5.0" />
                </BorderPane.margin>
-               <content>
-                  <StackPane fx:id="stackPane" />
-               </content>
             </ScrollPane>
          </center>
          <right>

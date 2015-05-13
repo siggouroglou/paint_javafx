@@ -49,8 +49,8 @@
             </Label>
             <HBox alignment="CENTER_RIGHT" spacing="10.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#cancelClick" text="Ακυρο" />
-                  <Button mnemonicParsing="false" onAction="#saveClick" text="Αποθηκευση" />
+                  <Button cancelButton="true" mnemonicParsing="false" onAction="#cancelClick" text="Ακυρο" />
+                  <Button defaultButton="true" mnemonicParsing="false" onAction="#saveClick" text="Αποθηκευση" />
                </children>
                <VBox.margin>
                   <Insets top="20.0" />
