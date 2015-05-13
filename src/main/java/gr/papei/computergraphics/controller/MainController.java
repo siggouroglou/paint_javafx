@@ -1,6 +1,7 @@
 package gr.papei.computergraphics.controller;
 
 import gr.papei.computergraphics.controller.help.AboutController;
+import gr.papei.computergraphics.lib.shape.initiator.CircleInitiator;
 import gr.papei.computergraphics.lib.singleton.CanvasManager;
 import gr.papei.computergraphics.lib.singleton.Settings;
 import gr.papei.computergraphics.lib.singleton.ShapeProperties;
@@ -166,7 +167,7 @@ public class MainController implements Initializable {
 
     @FXML
     void shapeCircleClick(ActionEvent event) {
-
+        CanvasManager.getInstance().startDrawing(new CircleInitiator());
     }
 
     @FXML
@@ -302,12 +303,12 @@ public class MainController implements Initializable {
     //<editor-fold defaultstate="collapsed" desc="Edit Menu">
     @FXML
     void editShapeLineClick(ActionEvent event) {
-        CanvasManager.getInstance().startDrawing(new LineInitiator());
+        shapeLineClick(null);
     }
 
     @FXML
     void editShapeCicleClick(ActionEvent event) {
-
+        shapeCircleClick(null);
     }
 
     @FXML
