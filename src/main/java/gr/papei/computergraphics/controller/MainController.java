@@ -1,7 +1,6 @@
 package gr.papei.computergraphics.controller;
 
 import gr.papei.computergraphics.controller.help.AboutController;
-import gr.papei.computergraphics.lib.ColorUtilities;
 import gr.papei.computergraphics.lib.singleton.CanvasManager;
 import gr.papei.computergraphics.lib.singleton.Settings;
 import gr.papei.computergraphics.lib.singleton.ShapeProperties;
@@ -15,6 +14,7 @@ import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -27,17 +27,19 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 import org.apache.commons.io.FileUtils;
 import org.controlsfx.dialog.Dialogs;
 
 public class MainController implements Initializable {
+
+    private Stage stage;
 
     @FXML
     private ScrollPane scrollPane;
@@ -97,10 +99,26 @@ public class MainController implements Initializable {
         // Bind savadNo and savedYes properties to canvas.
         savedYesLabel.visibleProperty().bind(Bindings.and(CanvasManager.getInstance().canvasInitializedProperty(), IOUtilities.savedProperty()));
         savedNoLabel.visibleProperty().bind(Bindings.and(CanvasManager.getInstance().canvasInitializedProperty(), IOUtilities.savedProperty().isEqualTo(new SimpleBooleanProperty(false))));
+
+        // On stage cloas event.
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+
+        // Register the event once.
+        if (getStage().getOnCloseRequest() == null) {
+            // Event when close window is clicked.
+            getStage().setOnCloseRequest((WindowEvent we) -> {
+                if (!IOUtilities.savedProperty().get() && CanvasManager.getInstance().canvasInitializedProperty().get()) {
+                    IOUtilities.questionForSave(getStage());
+                }
+            });
+        }
     }
 
     private Stage getStage() {
-        return (Stage) scrollPane.getScene().getWindow();
+        return this.stage;
     }
 
     //<editor-fold defaultstate="collapsed" desc="Palet Bar">
@@ -139,6 +157,11 @@ public class MainController implements Initializable {
     //<editor-fold defaultstate="collapsed" desc="File Menu">
     @FXML
     void fileNewClick(ActionEvent event) throws IOException {
+        // Check if there is unsaved changes.
+        if (!IOUtilities.savedProperty().get() && CanvasManager.getInstance().canvasInitializedProperty().get()) {
+            IOUtilities.questionForSave(getStage());
+        }
+
         // Stages and owners.
         Stage currentStage = getStage();
         Stage fileNewStage = new Stage();
@@ -153,18 +176,34 @@ public class MainController implements Initializable {
         Parent root = (Parent) loader.load();
         fileNewStage.setScene(new Scene(root));
 
-        /// Show it.
+        // Show it.
         fileNewStage.show();
     }
 
     @FXML
     void fileSaveClick(ActionEvent event) {
-        IOUtilities.savedProperty().set(true);
+        if (!IOUtilities.savedProperty().get() && CanvasManager.getInstance().canvasInitializedProperty().get()) {
+            IOUtilities.save(getStage());
+            IOUtilities.savedProperty().set(true);
+        }
     }
 
     @FXML
     void fileSaveAsClick(ActionEvent event) {
+        if (CanvasManager.getInstance().canvasInitializedProperty().get()) {
+            IOUtilities.saveAs(getStage());
+            IOUtilities.savedProperty().set(true);
+        }
+    }
 
+    @FXML
+    void fileCloseClick(ActionEvent event) {
+        if (CanvasManager.getInstance().canvasInitializedProperty().get()) {
+            if (!IOUtilities.savedProperty().get()) {
+                IOUtilities.questionForSave(getStage());
+            }
+            CanvasManager.getInstance().removeCanvas();
+        }
     }
 
     @FXML
@@ -213,7 +252,13 @@ public class MainController implements Initializable {
 
     @FXML
     void fileQuitClick(ActionEvent event) {
+        // The event is not working when i close the stage directly. Thus i implement this source twice.
+        if (!IOUtilities.savedProperty().get() && CanvasManager.getInstance().canvasInitializedProperty().get()) {
+            IOUtilities.questionForSave(getStage());
+        }
 
+        // Close the stage.
+        getStage().close();
     }
     //</editor-fold>
 

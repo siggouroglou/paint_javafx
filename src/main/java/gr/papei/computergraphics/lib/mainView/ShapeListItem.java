@@ -159,7 +159,6 @@ public class ShapeListItem {
 
                 event.setDropCompleted(true);
             }
-
         });
 
 //        // Drag completed. This hbox drag completed.

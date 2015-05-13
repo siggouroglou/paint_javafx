@@ -73,8 +73,9 @@ public final class CanvasManager {
         final GraphicsContext gc = canvas.getGraphicsContext2D();
         final PixelWriter pixelWriter = gc.getPixelWriter();
 
-        // Enable canvasInitialized property.
+        // Enable canvasInitialized property and set saved property to false.
         canvasInitialized.set(true);
+        IOUtilities.savedProperty().set(false);
 
         // Set background color.
         Color color = Color.valueOf(Settings.getInstance().getBackgroundColor());
@@ -201,6 +202,13 @@ public final class CanvasManager {
 
         // Draw all the shapes.
         drawAllShapes();
+    }
+
+    public void removeCanvas() {
+        parent.setContent(null);
+        canvas = null;
+        drawingEnable.set(false);
+        canvasInitialized.set(false);
     }
 
     public void changeBackgroundColor(Color color) {

@@ -1,5 +1,6 @@
 package gr.papei.computergraphics;
 
+import gr.papei.computergraphics.controller.MainController;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -27,8 +28,8 @@ public class StartUp extends Application {
         Parent root = (Parent)loader.load();
         primaryStage.setScene(new Scene(root));
         
-//        LogInController controller = (LogInController)loader.getController();        
-//        controller.setStage(primaryStage);
+        MainController controller = (MainController)loader.getController();        
+        controller.setStage(primaryStage);
         
         primaryStage.show();
     }

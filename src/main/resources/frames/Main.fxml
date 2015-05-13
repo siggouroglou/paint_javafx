@@ -32,7 +32,7 @@
                               <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
                            </accelerator>
                         </MenuItem>
-                        <MenuItem mnemonicParsing="false" text="Κλεισιμο">
+                        <MenuItem mnemonicParsing="false" onAction="#fileCloseClick" text="Κλεισιμο">
                            <accelerator>
                               <KeyCodeCombination alt="UP" code="W" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                            </accelerator>
