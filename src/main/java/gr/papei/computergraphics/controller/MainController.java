@@ -3,6 +3,7 @@ package gr.papei.computergraphics.controller;
 import gr.papei.computergraphics.controller.help.AboutController;
 import gr.papei.computergraphics.lib.shape.initiator.CircleInitiator;
 import gr.papei.computergraphics.lib.shape.initiator.CrookedInitiator;
+import gr.papei.computergraphics.lib.shape.initiator.FreeHandInitiator;
 import gr.papei.computergraphics.lib.singleton.CanvasManager;
 import gr.papei.computergraphics.lib.singleton.Settings;
 import gr.papei.computergraphics.lib.singleton.ShapeProperties;
@@ -202,8 +203,13 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    void shapeCrookedLineClick(ActionEvent event) {
+    void shapeCrookedClick(ActionEvent event) {
         CanvasManager.getInstance().startDrawing(new CrookedInitiator());
+    }
+
+    @FXML
+    void shapeFreeHandClick(ActionEvent event) {
+        CanvasManager.getInstance().startDrawing(new FreeHandInitiator());
     }
     //</editor-fold>
 
@@ -349,13 +355,18 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    void editShapeCrookedLineClick(ActionEvent event) {
-        shapeCrookedLineClick(null);
+    void editShapePolygonClick(ActionEvent event) {
+        shapePolygonClick(null);
     }
 
     @FXML
-    void editShapePolygonClick(ActionEvent event) {
-        shapePolygonClick(null);
+    void editShapeCrookedClick(ActionEvent event) {
+        shapeCrookedClick(null);
+    }
+
+    @FXML
+    void editShapeFreeHandClick(ActionEvent event) {
+        shapeFreeHandClick(null);
     }
 
     @FXML

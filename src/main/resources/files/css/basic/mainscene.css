@@ -45,8 +45,12 @@
   -fx-graphic: url("../../images/shapePolygon.png");
 }
 
-#shapeCrookedLineButton {
+#shapeCrookedButton {
   -fx-graphic: url("../../images/shapeCrooked.png");
+}
+
+#shapeFreeHandButton {
+  -fx-graphic: url("../../images/shapeFreeHand.png");
 }
 
 .palet-button {

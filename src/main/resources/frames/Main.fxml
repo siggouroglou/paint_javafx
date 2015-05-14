@@ -63,8 +63,9 @@
                               <MenuItem mnemonicParsing="false" onAction="#editShapeCicleClick" text="Κυκλος" />
                               <MenuItem mnemonicParsing="false" onAction="#editShapeTriangleClick" text="Τριγωνο" />
                               <MenuItem mnemonicParsing="false" onAction="#editShapeSquareClick" text="Τετραγωνο" />
-                              <MenuItem mnemonicParsing="false" onAction="#editShapeCrookedLineClick" text="Τεθλασμενη Γραμμη" />
                               <MenuItem mnemonicParsing="false" onAction="#editShapePolygonClick" text="Πολυγωνο" />
+                              <MenuItem mnemonicParsing="false" onAction="#editShapeCrookedClick" text="Τεθλασμενη Γραμμη" />
+                              <MenuItem mnemonicParsing="false" onAction="#editShapeFreeHandClick" text="Ελευθερη Γραμμη" />
                           </items>
                         </Menu>
                         <SeparatorMenuItem mnemonicParsing="false" />
@@ -136,10 +137,15 @@
                            <tooltip>
                               <Tooltip text="Σχεδίαση Πολυγώνου" />
                            </tooltip></ToggleButton>
-                        <ToggleButton id="shapeCrookedLineButton" mnemonicParsing="false" onAction="#shapeCrookedLineClick" toggleGroup="$toggleGroup">
+                        <ToggleButton id="shapeCrookedButton" mnemonicParsing="false" onAction="#shapeCrookedClick" toggleGroup="$toggleGroup">
                            <tooltip>
                               <Tooltip text="Σχεδίαση Τεθλασμένης Γραμμής" />
                            </tooltip></ToggleButton>
+                        <ToggleButton id="shapeFreeHandButton" layoutX="10.0" layoutY="94.0" mnemonicParsing="false" onAction="#shapeFreeHandClick" toggleGroup="$toggleGroup">
+                           <tooltip>
+                              <Tooltip text="Σχεδίαση Τεθλασμένης Γραμμής" />
+                           </tooltip>
+                        </ToggleButton>
                      </children>
                      <VBox.margin>
                         <Insets top="20.0" />
