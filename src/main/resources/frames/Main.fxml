@@ -50,6 +50,11 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Επεξεργασια">
                   <items>
+                        <MenuItem fx:id="editRefreshMenu" mnemonicParsing="false" onAction="#editRefreshClick" text="Ανανεωση">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="F5" control="UP" meta="UP" shift="UP" shortcut="ANY" />
+                           </accelerator>
+                        </MenuItem>
                         <Menu fx:id="editDesignMenu" mnemonicParsing="false" text="Σχεδιαση">
                           <items>
                             <MenuItem mnemonicParsing="false" onAction="#editShapeLineClick" text="Ευθυγραμμο Τμημα" />

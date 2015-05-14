@@ -58,6 +58,8 @@ public class MainController implements Initializable {
     private MenuItem fileCloseMenu;
     @FXML
     private Menu editDesignMenu;
+    @FXML
+    private MenuItem editRefreshMenu;
 
     @FXML
     private ScrollPane scrollPane;
@@ -91,6 +93,7 @@ public class MainController implements Initializable {
         assert fileSaveMenu != null : "fx:id=\"fileSaveMenu\" was not injected: check your FXML file 'Main.fxml'.";
         assert fileCloseMenu != null : "fx:id=\"fileCloseMenu\" was not injected: check your FXML file 'Main.fxml'.";
         assert editDesignMenu != null : "fx:id=\"editDesignMenu\" was not injected: check your FXML file 'Main.fxml'.";
+        assert editRefreshMenu != null : "fx:id=\"editRefreshMenu\" was not injected: check your FXML file 'Main.fxml'.";
         
         assert shapeListContainer != null : "fx:id=\"shapeStackContainer\" was not injected: check your FXML file 'Main.fxml'.";
         assert coordinatesLabel != null : "fx:id=\"coordinatesLabel\" was not injected: check your FXML file 'Main.fxml'.";
@@ -137,9 +140,11 @@ public class MainController implements Initializable {
         fileImportMenu.disableProperty().bind(CanvasManager.getInstance().canvasInitializedProperty().isEqualTo(new SimpleBooleanProperty(false)));
         fileSaveMenu.disableProperty().bind(CanvasManager.getInstance().canvasInitializedProperty().isEqualTo(new SimpleBooleanProperty(false)));
         fileCloseMenu.disableProperty().bind(CanvasManager.getInstance().canvasInitializedProperty().isEqualTo(new SimpleBooleanProperty(false)));
-        for(MenuItem menuItem : editDesignMenu.getItems()) {
-            menuItem.disableProperty().bind(CanvasManager.getInstance().canvasInitializedProperty().isEqualTo(new SimpleBooleanProperty(false)));
-        }
+        editDesignMenu.disableProperty().bind(CanvasManager.getInstance().canvasInitializedProperty().isEqualTo(new SimpleBooleanProperty(false)));
+        editRefreshMenu.disableProperty().bind(CanvasManager.getInstance().canvasInitializedProperty().isEqualTo(new SimpleBooleanProperty(false)));
+//        for(MenuItem menuItem : editDesignMenu.getItems()) {
+//            menuItem.disableProperty().bind(CanvasManager.getInstance().canvasInitializedProperty().isEqualTo(new SimpleBooleanProperty(false)));
+//        }
     }
 
     public void setStage(Stage stage) {
@@ -302,6 +307,11 @@ public class MainController implements Initializable {
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Edit Menu">
+    @FXML
+    void editRefreshClick(ActionEvent event) {
+        CanvasManager.getInstance().refreshCanvas();
+    }
+    
     @FXML
     void editShapeLineClick(ActionEvent event) {
         shapeLineClick(null);
