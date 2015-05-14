@@ -23,8 +23,6 @@ public class TriangleInitiator implements ShapeInitiator<Shape> {
     @Override
     public void initialize() {
         triangle = new Triangle();
-        triangle.setLineColor(ShapeProperties.getInstance().getColor());
-        triangle.setFillColor(ShapeProperties.getInstance().getFill());
     }
 
     @Override
@@ -37,6 +35,8 @@ public class TriangleInitiator implements ShapeInitiator<Shape> {
         if (triangle.getPoint1() == null && triangle.getPoint2() == null) {
             triangle.setPoint1(new Point(x, y));
             triangle.setPoint2(new Point(x, y));
+            triangle.setLineColor(ShapeProperties.getInstance().getColor());
+            triangle.setFillColor(ShapeProperties.getInstance().getFill());
 
             // This is the first click, so create it.
             ShapeListManager.getInstance().add(triangle);

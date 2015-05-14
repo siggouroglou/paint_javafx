@@ -123,17 +123,22 @@
                            <tooltip>
                               <Tooltip text="Σχεδίαση Τριγώνου" />
                            </tooltip></ToggleButton>
+                        <ToggleButton id="shapeRectButton" layoutX="10.0" layoutY="52.0" mnemonicParsing="false" onAction="#shapeRectClick" toggleGroup="$toggleGroup">
+                           <tooltip>
+                              <Tooltip text="Σχεδίαση Ορθογωνιου" />
+                           </tooltip>
+                        </ToggleButton>
                         <ToggleButton id="shapeSquareButton" mnemonicParsing="false" onAction="#shapeSquareClick" toggleGroup="$toggleGroup">
                            <tooltip>
                               <Tooltip text="Σχεδίαση Τετραγώνου" />
                            </tooltip></ToggleButton>
-                        <ToggleButton id="shapeCrookedLineButton" mnemonicParsing="false" onAction="#shapeCrookedLineClick" toggleGroup="$toggleGroup">
-                           <tooltip>
-                              <Tooltip text="Σχεδίαση Τεθλασμένης Γραμμής" />
-                           </tooltip></ToggleButton>
                         <ToggleButton id="shapePolygonButton" mnemonicParsing="false" onAction="#shapePolygonClick" toggleGroup="$toggleGroup">
                            <tooltip>
                               <Tooltip text="Σχεδίαση Πολυγώνου" />
+                           </tooltip></ToggleButton>
+                        <ToggleButton id="shapeCrookedLineButton" mnemonicParsing="false" onAction="#shapeCrookedLineClick" toggleGroup="$toggleGroup">
+                           <tooltip>
+                              <Tooltip text="Σχεδίαση Τεθλασμένης Γραμμής" />
                            </tooltip></ToggleButton>
                      </children>
                      <VBox.margin>

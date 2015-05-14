@@ -37,6 +37,10 @@
   -fx-graphic: url("../../images/shapeSquare.png");
 }
 
+#shapeRectButton {
+  -fx-graphic: url("../../images/shapeRect.png");
+}
+
 #shapeCrookedLineButton {
   -fx-graphic: url("../../images/shapeCrookedLine.png");
 }

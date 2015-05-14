@@ -7,6 +7,8 @@ import gr.papei.computergraphics.lib.singleton.Settings;
 import gr.papei.computergraphics.lib.singleton.ShapeProperties;
 import gr.papei.computergraphics.lib.singleton.ShapeListManager;
 import gr.papei.computergraphics.lib.shape.initiator.LineInitiator;
+import gr.papei.computergraphics.lib.shape.initiator.RectInitiator;
+import gr.papei.computergraphics.lib.shape.initiator.SquareInitiator;
 import gr.papei.computergraphics.lib.shape.initiator.TriangleInitiator;
 import gr.papei.computergraphics.lib.singleton.IOUtilities;
 import java.io.File;
@@ -183,8 +185,13 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    void shapeSquareClick(ActionEvent event) {
+    void shapeRectClick(ActionEvent event) {
+        CanvasManager.getInstance().startDrawing(new RectInitiator());
+    }
 
+    @FXML
+    void shapeSquareClick(ActionEvent event) {
+        CanvasManager.getInstance().startDrawing(new SquareInitiator());
     }
 
     @FXML
