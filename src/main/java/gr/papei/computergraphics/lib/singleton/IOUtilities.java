@@ -105,7 +105,9 @@ public final class IOUtilities {
                     String json = shapeLine.substring(indexNo + 1);
                     
                     // Load data to it.
-                    Object shape = gson.fromJson(json, clazz);
+                    Object jsonObject = gson.fromJson(json, clazz);
+                    Shape shape = (Shape) jsonObject;
+                    shape.importFixJson(); // Problem using Gson. The platformColor property of Color class is not tranformed to the correct type.
                     
                     // Add this object that is a shape to the shape list.
                     shapeList.add((Shape) shape);

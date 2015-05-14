@@ -23,4 +23,5 @@ public interface Shape {
     public ShapeListItemEditStrategy getEditStrategy();
 
     public String exportToJson();
+    public void importFixJson();
 }

@@ -227,4 +227,13 @@ public final class Triangle implements Shape {
 
         return json;
     }
+
+    @Override
+    public void importFixJson() {
+        Color color = this.lineColor;
+        this.lineColor = Color.valueOf(color.toString());
+        
+        color = this.fillColor;
+        this.fillColor = Color.valueOf(color.toString());
+    }
 }

@@ -206,4 +206,10 @@ public final class Line implements Shape {
         
         return json;
     }
+
+    @Override
+    public void importFixJson() {
+        Color color = this.lineColor;
+        this.lineColor = Color.valueOf(color.toString());
+    }
 }
