@@ -7,6 +7,7 @@ import gr.papei.computergraphics.lib.singleton.Settings;
 import gr.papei.computergraphics.lib.singleton.ShapeProperties;
 import gr.papei.computergraphics.lib.singleton.ShapeListManager;
 import gr.papei.computergraphics.lib.shape.initiator.LineInitiator;
+import gr.papei.computergraphics.lib.shape.initiator.TriangleInitiator;
 import gr.papei.computergraphics.lib.singleton.IOUtilities;
 import java.io.File;
 import java.io.IOException;
@@ -172,7 +173,7 @@ public class MainController implements Initializable {
 
     @FXML
     void shapeTriangleAction(ActionEvent event) {
-
+        CanvasManager.getInstance().startDrawing(new TriangleInitiator());
     }
 
     @FXML
@@ -249,7 +250,7 @@ public class MainController implements Initializable {
         FileChooser choose = new FileChooser();
         choose.setTitle("Επιλογή αρχείου για εξαγωγή σχημάτων");
         File file = choose.showOpenDialog(getStage());
-        if (!file.isFile()) {
+        if (file == null || !file.isFile()) {
             try {
                 FileUtils.touch(file);
             } catch (IOException ex) {
@@ -276,7 +277,7 @@ public class MainController implements Initializable {
         FileChooser choose = new FileChooser();
         choose.setTitle("Επιλογή αρχείου για εισαγωγή σχημάτων");
         File file = choose.showOpenDialog(getStage());
-        if (!file.isFile()) {
+        if (file == null || !file.isFile()) {
             Dialogs.create()
                     .owner(getStage())
                     .title("Πρόβλημα")
@@ -313,22 +314,22 @@ public class MainController implements Initializable {
 
     @FXML
     void editShapeTriangleClick(ActionEvent event) {
-
+        shapeTriangleAction(null);
     }
 
     @FXML
     void editShapeSquareClick(ActionEvent event) {
-
+        shapeSquareClick(null);
     }
 
     @FXML
     void editShapeCrookedLineClick(ActionEvent event) {
-
+        shapeCrookedLineClick(null);
     }
 
     @FXML
     void editShapePolygonClick(ActionEvent event) {
-
+        shapePolygonClick(null);
     }
 
     @FXML

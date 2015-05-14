@@ -22,7 +22,9 @@ public class CircleInitiator implements ShapeInitiator<Shape> {
 
     @Override
     public void initialize() {
-        this.circle = new Circle();
+        circle = new Circle();
+        circle.setLineColor(ShapeProperties.getInstance().getColor());
+        circle.setFillColor(ShapeProperties.getInstance().getFill());
     }
 
     @Override
@@ -33,8 +35,6 @@ public class CircleInitiator implements ShapeInitiator<Shape> {
 
         circle.setCenter(new Point(x, y));
         circle.setRadius(0);
-        circle.setLineColor(ShapeProperties.getInstance().getColor());
-        circle.setFillColor(ShapeProperties.getInstance().getFill());
 
         // This is the first click, so create it.
         ShapeListManager.getInstance().add(circle);

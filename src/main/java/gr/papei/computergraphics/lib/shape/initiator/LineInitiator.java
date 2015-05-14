@@ -21,7 +21,9 @@ public class LineInitiator implements ShapeInitiator<Shape> {
 
     @Override
     public void initialize() {
-        this.line = new Line();
+        line = new Line();
+        line.setLineColor(ShapeProperties.getInstance().getColor());
+        line.setWidth(ShapeProperties.getInstance().getWidth());
     }
 
     @Override
@@ -32,8 +34,6 @@ public class LineInitiator implements ShapeInitiator<Shape> {
         
         line.setFrom(new Point(x, y));
         line.setTo(new Point(x, y));
-        line.setLineColor(ShapeProperties.getInstance().getColor());
-        line.setWidth(ShapeProperties.getInstance().getWidth());
         
         // This is the first click, so create the line.
         ShapeListManager.getInstance().add(line);

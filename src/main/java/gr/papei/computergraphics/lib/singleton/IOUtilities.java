@@ -152,7 +152,7 @@ public final class IOUtilities {
             choose.setTitle("Επιλογή αρχείου για αποθήκευση εικόνας");
             choose.getExtensionFilters().addAll(extFilterPng, extFilterJpg);
             savedFile = choose.showOpenDialog(stage);
-            if (!savedFile.isFile()) {
+            if (savedFile == null || !savedFile.isFile()) {
                 try {
                     FileUtils.touch(savedFile);
                 } catch (IOException ex) {
@@ -188,7 +188,7 @@ public final class IOUtilities {
         choose.setTitle("Επιλογή αρχείου για αποθήκευση εικόνας");
         choose.getExtensionFilters().addAll(extFilterPng, extFilterJpg);
         savedFile = choose.showOpenDialog(stage);
-        if (!savedFile.isFile()) {
+        if (savedFile == null || !savedFile.isFile()) {
             try {
                 FileUtils.touch(savedFile);
             } catch (IOException ex) {
