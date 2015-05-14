@@ -55,6 +55,8 @@
                               <KeyCodeCombination alt="UP" code="F5" control="UP" meta="UP" shift="UP" shortcut="ANY" />
                            </accelerator>
                         </MenuItem>
+                        <MenuItem fx:id="editCleanMenu" mnemonicParsing="false" onAction="#editCleanClick" text="Καθαρισμος" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
                         <Menu fx:id="editDesignMenu" mnemonicParsing="false" text="Σχεδιαση">
                           <items>
                             <MenuItem mnemonicParsing="false" onAction="#editShapeLineClick" text="Ευθυγραμμο Τμημα" />
@@ -65,6 +67,7 @@
                               <MenuItem mnemonicParsing="false" onAction="#editShapePolygonClick" text="Πολυγωνο" />
                           </items>
                         </Menu>
+                        <SeparatorMenuItem mnemonicParsing="false" />
                     <MenuItem mnemonicParsing="false" onAction="#editSettingsClick" text="Ρυθμισεις" />
                   </items>
                 </Menu>
