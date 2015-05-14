@@ -8,7 +8,6 @@ import gr.unipi.computergraphics.lib.shape.Point;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.paint.Color;
@@ -20,6 +19,9 @@ import javafx.stage.Stage;
  * @author siggouroglou@gmail.com
  */
 public final class Square implements Shape {
+    public static final boolean lineColorEnable = true;
+    public static final boolean widthEnable = true;
+    public static final boolean fillColorEnable = true;
 
     private Point from;
     private Point to;

@@ -21,6 +21,9 @@ import javafx.stage.Stage;
  * @author siggouroglou@gmail.com
  */
 public class FreeHand implements Shape {
+    public static final boolean lineColorEnable = true;
+    public static final boolean widthEnable = false;
+    public static final boolean fillColorEnable = false;
 
     private List<Point> pointList;
     private Color lineColor;

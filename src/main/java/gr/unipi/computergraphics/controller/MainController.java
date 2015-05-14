@@ -13,6 +13,13 @@ import gr.unipi.computergraphics.lib.shape.initiator.PolygonInitiator;
 import gr.unipi.computergraphics.lib.shape.initiator.RectInitiator;
 import gr.unipi.computergraphics.lib.shape.initiator.SquareInitiator;
 import gr.unipi.computergraphics.lib.shape.initiator.TriangleInitiator;
+import gr.unipi.computergraphics.lib.shape.model.Crooked;
+import gr.unipi.computergraphics.lib.shape.model.FreeHand;
+import gr.unipi.computergraphics.lib.shape.model.Line;
+import gr.unipi.computergraphics.lib.shape.model.Polygon;
+import gr.unipi.computergraphics.lib.shape.model.Rect;
+import gr.unipi.computergraphics.lib.shape.model.Square;
+import gr.unipi.computergraphics.lib.shape.model.Triangle;
 import gr.unipi.computergraphics.lib.singleton.IOUtilities;
 import java.io.File;
 import java.io.IOException;
@@ -36,7 +43,6 @@ import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
@@ -84,7 +90,13 @@ public class MainController implements Initializable {
     @FXML
     private ToggleGroup toggleGroup;
     @FXML
-    private GridPane shapeProperiesGridPane;
+    private VBox shapeProperiesContainer;
+    @FXML
+    private VBox shapePropertyColorNode;
+    @FXML
+    private VBox shapePropertyWidthNode;
+    @FXML
+    private VBox shapePropertyFillNode;
     @FXML
     private ColorPicker shapePropertyColor;
     @FXML
@@ -109,7 +121,11 @@ public class MainController implements Initializable {
         assert savedNoLabel != null : "fx:id=\"savedNoLabel\" was not injected: check your FXML file 'Main.fxml'.";
         assert savedYesLabel != null : "fx:id=\"savedYesLabel\" was not injected: check your FXML file 'Main.fxml'.";
 
-        assert shapeProperiesGridPane != null : "fx:id=\"shapeProperiesGridPane\" was not injected: check your FXML file 'Main.fxml'.";
+        assert toggleGroup != null : "fx:id=\"toggleGroup\" was not injected: check your FXML file 'Main.fxml'.";
+        assert shapeProperiesContainer != null : "fx:id=\"shapeProperiesGridPane\" was not injected: check your FXML file 'Main.fxml'.";
+        assert shapePropertyColorNode != null : "fx:id=\"shapePropertyColorNode\" was not injected: check your FXML file 'Main.fxml'.";
+        assert shapePropertyWidthNode != null : "fx:id=\"shapePropertyWidthNode\" was not injected: check your FXML file 'Main.fxml'.";
+        assert shapePropertyFillNode != null : "fx:id=\"shapePropertyFillNode\" was not injected: check your FXML file 'Main.fxml'.";
         assert shapePropertyColor != null : "fx:id=\"shapePropertyColor\" was not injected: check your FXML file 'Main.fxml'.";
         assert shapePropertyWidth != null : "fx:id=\"shapePropertyWidth\" was not injected: check your FXML file 'Main.fxml'.";
         assert shapePropertyFill != null : "fx:id=\"shapePropertyFill\" was not injected: check your FXML file 'Main.fxml'.";
@@ -123,7 +139,7 @@ public class MainController implements Initializable {
         ShapeProperties.getInstance().widthProperty().set(Settings.getInstance().getDesignWidth());
 
         // Bind shape properties to shape toogle buttons.
-        shapeProperiesGridPane.visibleProperty().bind(Bindings.isNotNull(toggleGroup.selectedToggleProperty())
+        shapeProperiesContainer.visibleProperty().bind(Bindings.isNotNull(toggleGroup.selectedToggleProperty())
                                             .and(CanvasManager.getInstance().canvasInitializedProperty()));
         shapePropertyColor.valueProperty().bindBidirectional(ShapeProperties.getInstance().colorProperty());
         shapePropertyWidth.valueProperty().bindBidirectional(ShapeProperties.getInstance().widthProperty());
@@ -174,41 +190,65 @@ public class MainController implements Initializable {
     //<editor-fold defaultstate="collapsed" desc="Palet Bar">
     @FXML
     void shapeLineClick(ActionEvent event) {
+        shapePropertyColorNode.visibleProperty().set(true);
+        shapePropertyWidthNode.visibleProperty().set(true);
+        shapePropertyFillNode.visibleProperty().set(false);
         CanvasManager.getInstance().startDrawing(new LineInitiator());
     }
 
     @FXML
     void shapeCircleClick(ActionEvent event) {
+        shapePropertyColorNode.visibleProperty().set(Line.lineColorEnable);
+        shapePropertyWidthNode.visibleProperty().set(Line.widthEnable);
+        shapePropertyFillNode.visibleProperty().set(Line.fillColorEnable);
         CanvasManager.getInstance().startDrawing(new CircleInitiator());
     }
 
     @FXML
     void shapeTriangleAction(ActionEvent event) {
+        shapePropertyColorNode.visibleProperty().set(Triangle.lineColorEnable);
+        shapePropertyWidthNode.visibleProperty().set(Triangle.widthEnable);
+        shapePropertyFillNode.visibleProperty().set(Triangle.fillColorEnable);
         CanvasManager.getInstance().startDrawing(new TriangleInitiator());
     }
 
     @FXML
     void shapeRectClick(ActionEvent event) {
+        shapePropertyColorNode.visibleProperty().set(Rect.lineColorEnable);
+        shapePropertyWidthNode.visibleProperty().set(Rect.widthEnable);
+        shapePropertyFillNode.visibleProperty().set(Rect.fillColorEnable);
         CanvasManager.getInstance().startDrawing(new RectInitiator());
     }
 
     @FXML
     void shapeSquareClick(ActionEvent event) {
+        shapePropertyColorNode.visibleProperty().set(Square.lineColorEnable);
+        shapePropertyWidthNode.visibleProperty().set(Square.widthEnable);
+        shapePropertyFillNode.visibleProperty().set(Square.fillColorEnable);
         CanvasManager.getInstance().startDrawing(new SquareInitiator());
     }
 
     @FXML
     void shapePolygonClick(ActionEvent event) {
+        shapePropertyColorNode.visibleProperty().set(Polygon.lineColorEnable);
+        shapePropertyWidthNode.visibleProperty().set(Polygon.widthEnable);
+        shapePropertyFillNode.visibleProperty().set(Polygon.fillColorEnable);
         CanvasManager.getInstance().startDrawing(new PolygonInitiator());
     }
 
     @FXML
     void shapeCrookedClick(ActionEvent event) {
+        shapePropertyColorNode.visibleProperty().set(Crooked.lineColorEnable);
+        shapePropertyWidthNode.visibleProperty().set(Crooked.widthEnable);
+        shapePropertyFillNode.visibleProperty().set(Crooked.fillColorEnable);
         CanvasManager.getInstance().startDrawing(new CrookedInitiator());
     }
 
     @FXML
     void shapeFreeHandClick(ActionEvent event) {
+        shapePropertyColorNode.visibleProperty().set(FreeHand.lineColorEnable);
+        shapePropertyWidthNode.visibleProperty().set(FreeHand.widthEnable);
+        shapePropertyFillNode.visibleProperty().set(FreeHand.fillColorEnable);
         CanvasManager.getInstance().startDrawing(new FreeHandInitiator());
     }
     //</editor-fold>

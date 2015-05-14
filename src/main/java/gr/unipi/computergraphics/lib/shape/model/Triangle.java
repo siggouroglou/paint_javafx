@@ -20,6 +20,9 @@ import javafx.stage.Stage;
  * @author siggouroglou@gmail.com
  */
 public final class Triangle implements Shape {
+    public static final boolean lineColorEnable = true;
+    public static final boolean widthEnable = false;
+    public static final boolean fillColorEnable = true;
 
     private Point point1;
     private Point point2;

@@ -19,6 +19,9 @@ import javafx.stage.Stage;
  * @author siggouroglou@gmail.com
  */
 public final class Line implements Shape {
+    public static final boolean lineColorEnable = true;
+    public static final boolean widthEnable = true;
+    public static final boolean fillColorEnable = false;
 
     private Point from;
     private Point to;
