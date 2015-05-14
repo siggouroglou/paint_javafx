@@ -41,12 +41,12 @@
   -fx-graphic: url("../../images/shapeRect.png");
 }
 
-#shapeCrookedLineButton {
-  -fx-graphic: url("../../images/shapeCrookedLine.png");
-}
-
 #shapePolygonButton {
   -fx-graphic: url("../../images/shapePolygon.png");
+}
+
+#shapeCrookedLineButton {
+  -fx-graphic: url("../../images/shapeCrooked.png");
 }
 
 .palet-button {
