@@ -7,7 +7,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" onMouseClicked="#contentCLick" prefWidth="400.0" style="-fx-border-width: 1; -fx-border-color: #000000;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.papei.computergraphics.controller.help.AboutController">
+<AnchorPane id="AnchorPane" onMouseClicked="#contentCLick" prefWidth="400.0" style="-fx-border-width: 1; -fx-border-color: #000000;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.unipi.computergraphics.controller.help.AboutController">
   <children>
     <VBox alignment="CENTER" onDragDetected="#contentCLick" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
