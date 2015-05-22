@@ -1,7 +1,7 @@
 package gr.unipi.computergraphics.lib.singleton;
 
 import gr.unipi.computergraphics.lib.mainView.ShapeListItem;
-import gr.unipi.computergraphics.lib.shape.model.Shape;
+import gr.unipi.computergraphics.model.shape.Shape;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.Node;
@@ -56,7 +56,7 @@ public final class ShapeListManager {
         shapeListContainer.getChildren().add(item.getHBox());
 
         // Change the saved state. Create shape.
-        IOUtilities.savedProperty().set(false);
+        IOManager.getInstance().savedProperty().set(false);
     }
 
     public void remove(Shape shape, HBox hbox) {
@@ -70,7 +70,7 @@ public final class ShapeListManager {
         CanvasManager.getInstance().refreshCanvas();
 
         // Change the saved state. Delete shape.
-        IOUtilities.savedProperty().set(false);
+        IOManager.getInstance().savedProperty().set(false);
     }
 
     public void reDrawShape(Shape shape) {
@@ -88,7 +88,7 @@ public final class ShapeListManager {
         shapeListContainer.getChildren().add(index, hBoxNew);
 
         // Change the saved state. Edit shape.
-        IOUtilities.savedProperty().set(false);
+        IOManager.getInstance().savedProperty().set(false);
     }
 
     public List<Shape> getShapeList() {
@@ -112,7 +112,7 @@ public final class ShapeListManager {
         shapeList.add(targetIndex, sourceShape);
 
         // Change the saved state. Edit shape.
-        IOUtilities.savedProperty().set(false);
+        IOManager.getInstance().savedProperty().set(false);
     }
 
     public int indexOfHBox(HBox hBox) {

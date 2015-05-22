@@ -1,10 +1,10 @@
-package gr.unipi.computergraphics.lib.shape.initiator;
+package gr.unipi.computergraphics.lib.shapeInitiator;
 
 import gr.unipi.computergraphics.lib.singleton.ShapeProperties;
 import gr.unipi.computergraphics.lib.singleton.ShapeListManager;
-import gr.unipi.computergraphics.lib.shape.Point;
-import gr.unipi.computergraphics.lib.shape.model.Line;
-import gr.unipi.computergraphics.lib.shape.model.Shape;
+import gr.unipi.computergraphics.model.Point;
+import gr.unipi.computergraphics.model.shape.Square;
+import gr.unipi.computergraphics.model.shape.Shape;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.input.MouseEvent;
 
@@ -12,42 +12,46 @@ import javafx.scene.input.MouseEvent;
  *
  * @author siggouroglou@gmail.com
  */
-public class LineInitiator implements ShapeInitiator<Shape> {
-    private Line line;
+public class SquareInitiator implements ShapeInitiator<Shape> {
 
-    public LineInitiator() {
-        this.line = null;
+    private Square square;
+
+    public SquareInitiator() {
+        this.square = null;
     }
 
     @Override
     public void initialize() {
-        line = new Line();
+        square = new Square();
     }
 
     @Override
     public ShapeInitiatorState eventPressed(PixelWriter pixelWriter, MouseEvent mouseEvent) {
-        // Set line coordinates.
+        // Get coordinates.
         int x = (int) mouseEvent.getX();
         int y = (int) mouseEvent.getY();
         
-        line.setFrom(new Point(x, y));
-        line.setTo(new Point(x, y));
-        line.setLineColor(ShapeProperties.getInstance().getColor());
-        line.setWidth(ShapeProperties.getInstance().getWidth());
+        square.setFrom(new Point(x, y));
+        square.setTo(new Point(x, y));
+        square.setLineColor(ShapeProperties.getInstance().getColor());
+        square.setFillColor(ShapeProperties.getInstance().getFill());
+        square.setWidth(ShapeProperties.getInstance().getWidth().intValue());
         
         // This is the first click, so create the line.
-        ShapeListManager.getInstance().add(line);
+        ShapeListManager.getInstance().add(square);
         
         return ShapeInitiatorState.DRAWING;
     }
 
     @Override
     public ShapeInitiatorState eventDragged(PixelWriter pixelWriter, MouseEvent mouseEvent) {
-        // Set line coordinates.
+        // Get coordinates.
         int x = (int) mouseEvent.getX();
         int y = (int) mouseEvent.getY();
-        Point point = line.getTo();
-        point.setX(x);
+        
+        // Set the correct x. (x1 - x = y1 - y  => x=x1-y1+y)
+        Point point = square.getTo();
+        point.setX(point.getX() - point.getY() + y);
         point.setY(y);
         
         return ShapeInitiatorState.DRAWING;
@@ -55,11 +59,13 @@ public class LineInitiator implements ShapeInitiator<Shape> {
 
     @Override
     public ShapeInitiatorState eventReleased(PixelWriter pixelWriter, MouseEvent mouseEvent) {
-        // Set line coordinates.
+        // Get coordinates.
         int x = (int) mouseEvent.getX();
         int y = (int) mouseEvent.getY();
-        Point point = line.getTo();
-        point.setX(x);
+        
+        // Set the correct x. (x1 - x = y1 - y  => x=x1-y1+y)
+        Point point = square.getTo();
+        point.setX(point.getX() - point.getY() + y);
         point.setY(y);
         
         return ShapeInitiatorState.COMPLETED;

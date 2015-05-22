@@ -1,9 +1,9 @@
-package gr.unipi.computergraphics.lib.shape.model;
+package gr.unipi.computergraphics.model.shape;
 
 import com.google.gson.Gson;
-import gr.unipi.computergraphics.controller.shapeEdit.FreeHandEditController;
+import gr.unipi.computergraphics.controller.shapeEdit.CrookedEditController;
 import gr.unipi.computergraphics.lib.mainView.ShapeListItemEditStrategy;
-import gr.unipi.computergraphics.lib.shape.Point;
+import gr.unipi.computergraphics.model.Point;
 import gr.unipi.computergraphics.lib.singleton.CanvasManager;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,7 +20,7 @@ import javafx.stage.Stage;
  *
  * @author siggouroglou@gmail.com
  */
-public class FreeHand implements Shape {
+public class Crooked implements Shape {
     public static final boolean lineColorEnable = true;
     public static final boolean widthEnable = false;
     public static final boolean fillColorEnable = false;
@@ -28,7 +28,7 @@ public class FreeHand implements Shape {
     private List<Point> pointList;
     private Color lineColor;
 
-    public FreeHand() {
+    public Crooked() {
         this.pointList = new LinkedList<>();
     }
 
@@ -93,25 +93,25 @@ public class FreeHand implements Shape {
 
     @Override
     public ShapeListItemEditStrategy getEditStrategy() {
-        final FreeHand freeHand = this;
+        final Crooked crooked = this;
         return () -> {
             // Stages and owners.
             Stage currentStage = (Stage) CanvasManager.getInstance().getCanvas().getScene().getWindow();
             Stage lineEditStage = new Stage();
             lineEditStage.initModality(Modality.WINDOW_MODAL);
             lineEditStage.initOwner(currentStage);
-            lineEditStage.setTitle("Επεξεργασία Ελεύθερης Γραμμής");
+            lineEditStage.setTitle("Επεξεργασία Τεθλασμένης Γραμμής");
             lineEditStage.getIcons().add(new Image("/files/images/unipi_logo.jpg"));
             lineEditStage.setResizable(false);
 
             // Load the view.
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/frames/shapeEdit/FreeHandEdit.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/frames/shapeEdit/CrookedEdit.fxml"));
             Parent root = (Parent) loader.load();
             lineEditStage.setScene(new Scene(root));
 
             // Set the contollerreference point2 this line.
-            FreeHandEditController controller = (FreeHandEditController) loader.getController();
-            controller.setFreeHand(freeHand);
+            CrookedEditController controller = (CrookedEditController) loader.getController();
+            controller.setCrooked(crooked);
 
             /// Show it.
             lineEditStage.show();
@@ -120,12 +120,12 @@ public class FreeHand implements Shape {
 
     @Override
     public String getClassName() {
-        return "FreeHand";
+        return "Crooked";
     }
 
     @Override
     public String getImageFilePath() {
-        return "/files/images/shapeFreeHand.png";
+        return "/files/images/shapeCrooked.png";
     }
 
     @Override
@@ -135,7 +135,7 @@ public class FreeHand implements Shape {
 
     @Override
     public String getShapeTitle() {
-        return "Ελεύθερη Γραμμή";
+        return "Τεθλασμένη";
     }
 
     @Override

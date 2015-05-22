@@ -57,18 +57,6 @@
                         </MenuItem>
                         <MenuItem fx:id="editCleanMenu" mnemonicParsing="false" onAction="#editCleanClick" text="Καθαρισμος" />
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <Menu fx:id="editDesignMenu" mnemonicParsing="false" text="Σχεδιαση">
-                          <items>
-                            <MenuItem mnemonicParsing="false" onAction="#editShapeLineClick" text="Ευθυγραμμο Τμημα" />
-                              <MenuItem mnemonicParsing="false" onAction="#editShapeCicleClick" text="Κυκλος" />
-                              <MenuItem mnemonicParsing="false" onAction="#editShapeTriangleClick" text="Τριγωνο" />
-                              <MenuItem mnemonicParsing="false" onAction="#editShapeSquareClick" text="Τετραγωνο" />
-                              <MenuItem mnemonicParsing="false" onAction="#editShapePolygonClick" text="Πολυγωνο" />
-                              <MenuItem mnemonicParsing="false" onAction="#editShapeCrookedClick" text="Τεθλασμενη Γραμμη" />
-                              <MenuItem mnemonicParsing="false" onAction="#editShapeFreeHandClick" text="Ελευθερη Γραμμη" />
-                          </items>
-                        </Menu>
-                        <SeparatorMenuItem mnemonicParsing="false" />
                     <MenuItem mnemonicParsing="false" onAction="#editSettingsClick" text="Ρυθμισεις" />
                   </items>
                 </Menu>

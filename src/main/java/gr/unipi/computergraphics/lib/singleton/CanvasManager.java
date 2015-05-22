@@ -1,8 +1,8 @@
 package gr.unipi.computergraphics.lib.singleton;
 
-import gr.unipi.computergraphics.lib.shape.initiator.ShapeInitiator;
-import gr.unipi.computergraphics.lib.shape.initiator.ShapeInitiatorState;
-import gr.unipi.computergraphics.lib.shape.model.Shape;
+import gr.unipi.computergraphics.lib.shapeInitiator.ShapeInitiator;
+import gr.unipi.computergraphics.lib.shapeInitiator.ShapeInitiatorState;
+import gr.unipi.computergraphics.model.shape.Shape;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Cursor;
@@ -75,7 +75,7 @@ public final class CanvasManager {
 
         // Enable canvasInitialized property and set saved property to false.
         canvasInitialized.set(true);
-        IOUtilities.savedProperty().set(false);
+        IOManager.getInstance().savedProperty().set(false);
 
         // Set background color.
         Color color = Color.valueOf(Settings.getInstance().getBackgroundColor());
@@ -104,7 +104,7 @@ public final class CanvasManager {
                 drawAllShapes();
 
                 // Change the saved state.
-                IOUtilities.savedProperty().set(false);
+                IOManager.getInstance().savedProperty().set(false);
             }
         });
 
@@ -127,7 +127,7 @@ public final class CanvasManager {
                 drawAllShapes();
 
                 // Change the saved state.
-                IOUtilities.savedProperty().set(false);
+                IOManager.getInstance().savedProperty().set(false);
             }
         });
 
@@ -147,7 +147,7 @@ public final class CanvasManager {
                 drawAllShapes();
 
                 // Change the saved state.
-                IOUtilities.savedProperty().set(false);
+                IOManager.getInstance().savedProperty().set(false);
             }
         });
 
@@ -218,6 +218,6 @@ public final class CanvasManager {
         refreshCanvas();
 
         // Change the saved state.
-        IOUtilities.savedProperty().set(false);
+        IOManager.getInstance().savedProperty().set(false);
     }
 }

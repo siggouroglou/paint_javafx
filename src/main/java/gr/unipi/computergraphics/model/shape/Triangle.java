@@ -1,10 +1,10 @@
-package gr.unipi.computergraphics.lib.shape.model;
+package gr.unipi.computergraphics.model.shape;
 
 import com.google.gson.Gson;
 import gr.unipi.computergraphics.controller.shapeEdit.TriangleEditController;
 import gr.unipi.computergraphics.lib.singleton.CanvasManager;
 import gr.unipi.computergraphics.lib.mainView.ShapeListItemEditStrategy;
-import gr.unipi.computergraphics.lib.shape.Point;
+import gr.unipi.computergraphics.model.Point;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;

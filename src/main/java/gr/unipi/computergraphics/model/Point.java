@@ -1,4 +1,4 @@
-package gr.unipi.computergraphics.lib.shape;
+package gr.unipi.computergraphics.model;
 
 /**
  *

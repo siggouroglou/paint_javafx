@@ -2,8 +2,8 @@ package gr.unipi.computergraphics.controller.shapeEdit;
 
 import gr.unipi.computergraphics.lib.singleton.CanvasManager;
 import gr.unipi.computergraphics.lib.singleton.ShapeListManager;
-import gr.unipi.computergraphics.lib.shape.Point;
-import gr.unipi.computergraphics.lib.shape.model.Circle;
+import gr.unipi.computergraphics.model.Point;
+import gr.unipi.computergraphics.model.shape.Circle;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;

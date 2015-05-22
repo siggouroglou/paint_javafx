@@ -1,26 +1,26 @@
 package gr.unipi.computergraphics.controller;
 
 import gr.unipi.computergraphics.controller.help.AboutController;
-import gr.unipi.computergraphics.lib.shape.initiator.CircleInitiator;
-import gr.unipi.computergraphics.lib.shape.initiator.CrookedInitiator;
-import gr.unipi.computergraphics.lib.shape.initiator.FreeHandInitiator;
+import gr.unipi.computergraphics.lib.shapeInitiator.CircleInitiator;
+import gr.unipi.computergraphics.lib.shapeInitiator.CrookedInitiator;
+import gr.unipi.computergraphics.lib.shapeInitiator.FreeHandInitiator;
 import gr.unipi.computergraphics.lib.singleton.CanvasManager;
 import gr.unipi.computergraphics.lib.singleton.Settings;
 import gr.unipi.computergraphics.lib.singleton.ShapeProperties;
 import gr.unipi.computergraphics.lib.singleton.ShapeListManager;
-import gr.unipi.computergraphics.lib.shape.initiator.LineInitiator;
-import gr.unipi.computergraphics.lib.shape.initiator.PolygonInitiator;
-import gr.unipi.computergraphics.lib.shape.initiator.RectInitiator;
-import gr.unipi.computergraphics.lib.shape.initiator.SquareInitiator;
-import gr.unipi.computergraphics.lib.shape.initiator.TriangleInitiator;
-import gr.unipi.computergraphics.lib.shape.model.Crooked;
-import gr.unipi.computergraphics.lib.shape.model.FreeHand;
-import gr.unipi.computergraphics.lib.shape.model.Line;
-import gr.unipi.computergraphics.lib.shape.model.Polygon;
-import gr.unipi.computergraphics.lib.shape.model.Rect;
-import gr.unipi.computergraphics.lib.shape.model.Square;
-import gr.unipi.computergraphics.lib.shape.model.Triangle;
-import gr.unipi.computergraphics.lib.singleton.IOUtilities;
+import gr.unipi.computergraphics.lib.shapeInitiator.LineInitiator;
+import gr.unipi.computergraphics.lib.shapeInitiator.PolygonInitiator;
+import gr.unipi.computergraphics.lib.shapeInitiator.RectInitiator;
+import gr.unipi.computergraphics.lib.shapeInitiator.SquareInitiator;
+import gr.unipi.computergraphics.lib.shapeInitiator.TriangleInitiator;
+import gr.unipi.computergraphics.model.shape.Crooked;
+import gr.unipi.computergraphics.model.shape.FreeHand;
+import gr.unipi.computergraphics.model.shape.Line;
+import gr.unipi.computergraphics.model.shape.Polygon;
+import gr.unipi.computergraphics.model.shape.Rect;
+import gr.unipi.computergraphics.model.shape.Square;
+import gr.unipi.computergraphics.model.shape.Triangle;
+import gr.unipi.computergraphics.lib.singleton.IOManager;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -35,7 +35,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
@@ -71,8 +70,6 @@ public class MainController implements Initializable {
     private MenuItem editRefreshMenu;
     @FXML
     private MenuItem editCleanMenu;
-    @FXML
-    private Menu editDesignMenu;
 
     @FXML
     private ScrollPane scrollPane;
@@ -113,7 +110,6 @@ public class MainController implements Initializable {
         assert fileCloseMenu != null : "fx:id=\"fileCloseMenu\" was not injected: check your FXML file 'Main.fxml'.";
         assert editRefreshMenu != null : "fx:id=\"editRefreshMenu\" was not injected: check your FXML file 'Main.fxml'.";
         assert editCleanMenu != null : "fx:id=\"editCleanMenu\" was not injected: check your FXML file 'Main.fxml'.";
-        assert editDesignMenu != null : "fx:id=\"editDesignMenu\" was not injected: check your FXML file 'Main.fxml'.";
         
         assert shapeListContainer != null : "fx:id=\"shapeStackContainer\" was not injected: check your FXML file 'Main.fxml'.";
         assert coordinatesLabel != null : "fx:id=\"coordinatesLabel\" was not injected: check your FXML file 'Main.fxml'.";
@@ -149,8 +145,8 @@ public class MainController implements Initializable {
         CanvasManager.getInstance().drawingEnableProperty().bind(Bindings.isNotNull(toggleGroup.selectedToggleProperty()));
 
         // Bind savadNo and savedYes properties to canvas.
-        savedYesLabel.visibleProperty().bind(Bindings.and(CanvasManager.getInstance().canvasInitializedProperty(), IOUtilities.savedProperty()));
-        savedNoLabel.visibleProperty().bind(Bindings.and(CanvasManager.getInstance().canvasInitializedProperty(), IOUtilities.savedProperty().isEqualTo(new SimpleBooleanProperty(false))));
+        savedYesLabel.visibleProperty().bind(Bindings.and(CanvasManager.getInstance().canvasInitializedProperty(), IOManager.getInstance().savedProperty()));
+        savedNoLabel.visibleProperty().bind(Bindings.and(CanvasManager.getInstance().canvasInitializedProperty(), IOManager.getInstance().savedProperty().isEqualTo(new SimpleBooleanProperty(false))));
 
         // Toggle buttons enable property bind to canvas initialization property.
         for(Toggle toggle : toggleGroup.getToggles()) {
@@ -166,7 +162,6 @@ public class MainController implements Initializable {
         fileCloseMenu.disableProperty().bind(CanvasManager.getInstance().canvasInitializedProperty().isEqualTo(new SimpleBooleanProperty(false)));
         editRefreshMenu.disableProperty().bind(CanvasManager.getInstance().canvasInitializedProperty().isEqualTo(new SimpleBooleanProperty(false)));
         editCleanMenu.disableProperty().bind(CanvasManager.getInstance().canvasInitializedProperty().isEqualTo(new SimpleBooleanProperty(false)));
-        editDesignMenu.disableProperty().bind(CanvasManager.getInstance().canvasInitializedProperty().isEqualTo(new SimpleBooleanProperty(false)));
     }
 
     public void setStage(Stage stage) {
@@ -176,8 +171,8 @@ public class MainController implements Initializable {
         if (getStage().getOnCloseRequest() == null) {
             // Event when close window is clicked.
             getStage().setOnCloseRequest((WindowEvent we) -> {
-                if (!IOUtilities.savedProperty().get() && CanvasManager.getInstance().canvasInitializedProperty().get()) {
-                    IOUtilities.questionForSave(getStage());
+                if (!IOManager.getInstance().savedProperty().get() && CanvasManager.getInstance().canvasInitializedProperty().get()) {
+                    IOManager.getInstance().questionForSave(getStage());
                 }
             });
         }
@@ -258,8 +253,8 @@ public class MainController implements Initializable {
     @FXML
     void fileNewClick(ActionEvent event) throws IOException {
         // Check if there is unsaved changes.
-        if (!IOUtilities.savedProperty().get() && CanvasManager.getInstance().canvasInitializedProperty().get()) {
-            IOUtilities.questionForSave(getStage());
+        if (!IOManager.getInstance().savedProperty().get() && CanvasManager.getInstance().canvasInitializedProperty().get()) {
+            IOManager.getInstance().questionForSave(getStage());
         }
 
         // Stages and owners.
@@ -282,25 +277,25 @@ public class MainController implements Initializable {
 
     @FXML
     void fileSaveClick(ActionEvent event) {
-        if (!IOUtilities.savedProperty().get() && CanvasManager.getInstance().canvasInitializedProperty().get()) {
-            IOUtilities.save(getStage());
-            IOUtilities.savedProperty().set(true);
+        if (!IOManager.getInstance().savedProperty().get() && CanvasManager.getInstance().canvasInitializedProperty().get()) {
+            IOManager.getInstance().save(getStage());
+            IOManager.getInstance().savedProperty().set(true);
         }
     }
 
     @FXML
     void fileSaveAsClick(ActionEvent event) {
         if (CanvasManager.getInstance().canvasInitializedProperty().get()) {
-            IOUtilities.saveAs(getStage());
-            IOUtilities.savedProperty().set(true);
+            IOManager.getInstance().saveAs(getStage());
+            IOManager.getInstance().savedProperty().set(true);
         }
     }
 
     @FXML
     void fileCloseClick(ActionEvent event) {
         if (CanvasManager.getInstance().canvasInitializedProperty().get()) {
-            if (!IOUtilities.savedProperty().get()) {
-                IOUtilities.questionForSave(getStage());
+            if (!IOManager.getInstance().savedProperty().get()) {
+                IOManager.getInstance().questionForSave(getStage());
             }
             CanvasManager.getInstance().removeCanvas();
         }
@@ -325,14 +320,14 @@ public class MainController implements Initializable {
             }
         }
 
-        IOUtilities.exportCanvas(file);
+        IOManager.getInstance().exportCanvas(file);
     }
 
     @FXML
     void fileImportClick(ActionEvent event) {
         // Check if the current canvas is saved.
-        if (!IOUtilities.savedProperty().get() && CanvasManager.getInstance().canvasInitializedProperty().get()) {
-            IOUtilities.questionForSave(getStage());
+        if (!IOManager.getInstance().savedProperty().get() && CanvasManager.getInstance().canvasInitializedProperty().get()) {
+            IOManager.getInstance().questionForSave(getStage());
         }
 
         FileChooser choose = new FileChooser();
@@ -347,14 +342,14 @@ public class MainController implements Initializable {
                     .showWarning();
         }
 
-        IOUtilities.importShapes(file);
+        IOManager.getInstance().importShapes(file);
     }
 
     @FXML
     void fileQuitClick(ActionEvent event) {
         // The event is not working when i close the stage directly. Thus i implement this source twice.
-        if (!IOUtilities.savedProperty().get() && CanvasManager.getInstance().canvasInitializedProperty().get()) {
-            IOUtilities.questionForSave(getStage());
+        if (!IOManager.getInstance().savedProperty().get() && CanvasManager.getInstance().canvasInitializedProperty().get()) {
+            IOManager.getInstance().questionForSave(getStage());
         }
 
         // Close the stage.
@@ -374,41 +369,6 @@ public class MainController implements Initializable {
         CanvasManager.getInstance().refreshCanvas();
     }
     
-    @FXML
-    void editShapeLineClick(ActionEvent event) {
-        shapeLineClick(null);
-    }
-
-    @FXML
-    void editShapeCicleClick(ActionEvent event) {
-        shapeCircleClick(null);
-    }
-
-    @FXML
-    void editShapeTriangleClick(ActionEvent event) {
-        shapeTriangleAction(null);
-    }
-
-    @FXML
-    void editShapeSquareClick(ActionEvent event) {
-        shapeSquareClick(null);
-    }
-
-    @FXML
-    void editShapePolygonClick(ActionEvent event) {
-        shapePolygonClick(null);
-    }
-
-    @FXML
-    void editShapeCrookedClick(ActionEvent event) {
-        shapeCrookedClick(null);
-    }
-
-    @FXML
-    void editShapeFreeHandClick(ActionEvent event) {
-        shapeFreeHandClick(null);
-    }
-
     @FXML
     void editSettingsClick(ActionEvent event) throws IOException {
         // Stages and owners.

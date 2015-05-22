@@ -1,7 +1,7 @@
 package gr.unipi.computergraphics.lib.singleton;
 
 import com.google.gson.Gson;
-import gr.unipi.computergraphics.lib.shape.model.Shape;
+import gr.unipi.computergraphics.model.shape.Shape;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -32,16 +32,27 @@ import org.controlsfx.dialog.Dialogs;
  *
  * @author siggouroglou@gmail.com
  */
-public final class IOUtilities {
+public final class IOManager {
 
+    private static IOManager INSTANCE;
     private static final BooleanProperty saved = new SimpleBooleanProperty(false);
     private static File savedFile;
 
-    public static BooleanProperty savedProperty() {
+    private IOManager() {
+    }
+    
+    public static IOManager getInstance() {
+        if(INSTANCE == null) {
+            INSTANCE = new IOManager();
+        }
+        return INSTANCE;
+    }
+
+    public BooleanProperty savedProperty() {
         return saved;
     }
 
-    public static boolean exportCanvas(File file) {
+    public boolean exportCanvas(File file) {
         // Check the argument.
         if (file == null || !file.isFile()) {
             throw new IllegalArgumentException("File must be not null and must be existing.");
@@ -72,7 +83,7 @@ public final class IOUtilities {
         return isEverythingOk;
     }
 
-    public static boolean importShapes(File file) {
+    public boolean importShapes(File file) {
         // Check the argument.
         if (file == null || !file.isFile()) {
             throw new IllegalArgumentException("File must be not null and must be existing.");
@@ -99,7 +110,7 @@ public final class IOUtilities {
                     }
 
                     // Get the class type and the json data.
-                    Class<?> clazz = Class.forName("gr.unipi.computergraphics.lib.shape.model." + lineArray[0]);
+                    Class<?> clazz = Class.forName("gr.unipi.computergraphics.model.shape." + lineArray[0]);
                     Gson gson = new Gson();
                     int indexNo = shapeLine.indexOf("=");
                     String json = shapeLine.substring(indexNo + 1);
@@ -128,7 +139,7 @@ public final class IOUtilities {
         return isEverythingOk;
     }
 
-    public static void questionForSave(Stage stage) {
+    public void questionForSave(Stage stage) {
         Action response = Dialogs.create()
                 .owner(stage)
                 .title("Αποθήκευση")
@@ -142,7 +153,7 @@ public final class IOUtilities {
         }
     }
 
-    public static void save(Stage stage) {
+    public void save(Stage stage) {
         // Has user selected a file.
         if (savedFile == null) {
             // Create the allowed extensions list.
@@ -180,7 +191,7 @@ public final class IOUtilities {
         }
     }
 
-    public static void saveAs(Stage stage) {
+    public void saveAs(Stage stage) {
         // Create the allowed extensions list.
         FileChooser.ExtensionFilter extFilterPng = new FileChooser.ExtensionFilter("PNG Image", "*.png");
         FileChooser.ExtensionFilter extFilterJpg = new FileChooser.ExtensionFilter("JPG Image", "*.jpg");

@@ -1,9 +1,9 @@
-package gr.unipi.computergraphics.lib.shape.model;
+package gr.unipi.computergraphics.model.shape;
 
 import com.google.gson.Gson;
 import gr.unipi.computergraphics.controller.shapeEdit.PolygonEditController;
 import gr.unipi.computergraphics.lib.mainView.ShapeListItemEditStrategy;
-import gr.unipi.computergraphics.lib.shape.Point;
+import gr.unipi.computergraphics.model.Point;
 import gr.unipi.computergraphics.lib.singleton.CanvasManager;
 import java.util.ArrayList;
 import java.util.LinkedList;

@@ -1,4 +1,4 @@
-package gr.unipi.computergraphics.lib.shape.initiator;
+package gr.unipi.computergraphics.lib.shapeInitiator;
 
 /**
  *

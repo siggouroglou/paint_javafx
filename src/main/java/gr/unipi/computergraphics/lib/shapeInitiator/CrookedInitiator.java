@@ -1,8 +1,8 @@
-package gr.unipi.computergraphics.lib.shape.initiator;
+package gr.unipi.computergraphics.lib.shapeInitiator;
 
-import gr.unipi.computergraphics.lib.shape.Point;
-import gr.unipi.computergraphics.lib.shape.model.Shape;
-import gr.unipi.computergraphics.lib.shape.model.Crooked;
+import gr.unipi.computergraphics.model.Point;
+import gr.unipi.computergraphics.model.shape.Shape;
+import gr.unipi.computergraphics.model.shape.Crooked;
 import gr.unipi.computergraphics.lib.singleton.ShapeListManager;
 import gr.unipi.computergraphics.lib.singleton.ShapeProperties;
 import javafx.scene.image.PixelWriter;

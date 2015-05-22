@@ -3,7 +3,7 @@ package gr.unipi.computergraphics.lib.mainView;
 import gr.unipi.computergraphics.lib.singleton.CanvasManager;
 import gr.unipi.computergraphics.lib.singleton.ShapeListManager;
 import gr.unipi.computergraphics.lib.ColorUtilities;
-import gr.unipi.computergraphics.lib.shape.model.Shape;
+import gr.unipi.computergraphics.model.shape.Shape;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;

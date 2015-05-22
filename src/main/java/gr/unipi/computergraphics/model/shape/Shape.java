@@ -1,4 +1,4 @@
-package gr.unipi.computergraphics.lib.shape.model;
+package gr.unipi.computergraphics.model.shape;
 
 import gr.unipi.computergraphics.lib.mainView.ShapeListItemEditStrategy;
 import javafx.scene.image.PixelWriter;
